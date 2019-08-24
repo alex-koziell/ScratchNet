@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "../include/neuron.hpp"
 #include "../include/matrix.hpp"
 
@@ -13,8 +14,13 @@ int main() {
     cout << "activatedVal " << n->getActivatedVal() << endl;
     cout << "derivedVal " << n->getDerivedVal() << endl << endl;
 
-    Matrix *m = new Matrix(3, 3, true);
+    Matrix *m = new Matrix(3, 2, true);
     m->printToConsole();
+
+    cout << "\t -----------------" << endl;
+
+    Matrix *mT = m->transpose();
+    mT->printToConsole();
 
     return 0;
 }

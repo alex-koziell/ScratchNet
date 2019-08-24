@@ -12,8 +12,10 @@ class Matrix {
 
         Matrix *transpose();
 
-        void setValue(int row, int col, double value);
-        double getValue(int row, int col);
+        // as most likely the simplest and most computationally efficient way to set and get
+        // values, these two functions are defined in this header file
+        void setValue(int row, int col, double value) { this->values.at(row).at(col) = value; }
+        double getValue(int row, int col) { return this->values.at(row).at(col); }
 
         int getNumRows() { return this->numRows; }
         int getNumCols() { return this->numCols; }
