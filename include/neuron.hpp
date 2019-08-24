@@ -9,6 +9,8 @@ class Neuron {
     public:
         Neuron(double val);
 
+        void setVal(double val);
+
         // fast sigmoid funtion
         // f(x) = x / (1 + |x|)
         // derivative f(x) * (1 - f(x))
