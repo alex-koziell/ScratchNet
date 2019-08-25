@@ -11,4 +11,5 @@ add_executable(
     src/matrix.cpp
     src/layer.cpp
     src/neuron.cpp
+    src/network.cpp
 )

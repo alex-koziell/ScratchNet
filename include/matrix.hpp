@@ -10,7 +10,7 @@ class Matrix {
         Matrix(int numRows, int numCols, bool isRandom);
         double generateRandomNumber();
 
-        Matrix *transpose();
+        Matrix* transpose(); // return the matrix transpose
 
         // as most likely the simplest and most computationally efficient way to set and get
         // values, these two functions are defined in this header file

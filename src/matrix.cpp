@@ -39,20 +39,20 @@ Matrix::Matrix(int numRows, int numCols, bool isRandom) {
     }
 }
 
-Matrix *Matrix::transpose() {
+Matrix* Matrix::transpose() {
     /*
     Returns the transposed matrix.
     */
 
-    Matrix *m = new Matrix(this->numCols, this->numRows, false);
+    Matrix *transposedMatrix = new Matrix(this->numCols, this->numRows, false);
 
     for (int i=0; i<this->numRows; i++) {
         for (int j=0; j<this->numCols; j++) {
-            m->setValue(j, i, this->getValue(i,j));
+            transposedMatrix->setValue(j, i, this->getValue(i,j));
         }
     }
 
-    return m;
+    return transposedMatrix;
 }
 
 void Matrix::printToConsole() {

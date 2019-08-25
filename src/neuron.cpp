@@ -1,24 +1,24 @@
 #include "../include/neuron.hpp"
 
 // constructor
-Neuron::Neuron(double val) {
-    this->val = val;
+Neuron::Neuron(double value) {
+    this->value = value;
 
     // set activation and gradient
     activate();
     derive();
 }
 
-void Neuron::setVal(double newVal) {
-    this->val = val;
+void Neuron::setValue(double newValue) {
+    this->value = newValue;
     activate();
     derive();
 }
 
 void Neuron::activate() {
-    this->activatedVal = this->val / (1 + abs(this->val));
+    this->activation = this->value / (1 + abs(this->value));
 }
 
 void Neuron::derive() {
-    this->derivedVal = this->activatedVal * (1 - this->activatedVal);
+    this->derivedVal = this->activation * (1 - this->activation);
 }

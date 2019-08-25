@@ -7,9 +7,9 @@ using namespace std;
 
 class Neuron {
     public:
-        Neuron(double val);
+        Neuron(double value);
 
-        void setVal(double val);
+        void setValue(double value);
 
         // fast sigmoid funtion
         // f(x) = x / (1 + |x|)
@@ -17,16 +17,16 @@ class Neuron {
         void activate();
         void derive();
 
-        double getVal() { return this->val; }
-        double getActivatedVal() { return this->activatedVal; }
+        double getValue() { return this->value; }
+        double getActivation() { return this->activation; }
         double getDerivedVal() { return this->derivedVal; }
 
     private:
         // absolute value
-        double val;
+        double value;
 
         // activation (between 0 and 1)
-        double activatedVal;
+        double activation;
 
         // approximate derivative of the activated value
         double derivedVal;

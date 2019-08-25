@@ -2,25 +2,33 @@
 #include <iomanip>
 #include "../include/neuron.hpp"
 #include "../include/matrix.hpp"
+#include "../include/network.hpp"
 
 using namespace std;
 
 int main() {
-    cout << "Am I working?" << endl << endl; 
+    vector<int> topology;
+    topology.push_back(3);
+    topology.push_back(2);
+    topology.push_back(3);
 
-    Neuron *n = new Neuron(20);
+    vector<double> input;
+    input.push_back(1.0);
+    input.push_back(0.0);
+    input.push_back(1.0);
 
-    cout << "val " << n->getVal() << endl;
-    cout << "activatedVal " << n->getActivatedVal() << endl;
-    cout << "derivedVal " << n->getDerivedVal() << endl << endl;
+    cout << "//--------------------------------//" << endl;
+    cout << "\t CREATING NEW NETWORK..." << endl;
+    cout << "//--------------------------------//" << endl << endl;
 
-    Matrix *m = new Matrix(3, 2, true);
-    m->printToConsole();
+    Network *neuralNetwork = new Network(topology);
 
-    cout << "\t -----------------" << endl;
+    cout << "NUMBER OF LAYERS: " << topology.size() << endl;
+    cout << "NUMBER OF INPUT NEURONS: " << topology.at(0) << endl << endl;
+    neuralNetwork->setInput(input);
 
-    Matrix *mT = m->transpose();
-    mT->printToConsole();
+    neuralNetwork->printToConsole();
+
 
     return 0;
 }
