@@ -56,5 +56,3 @@ void Network::feedForward() {
 
     }
 }
-
-}
