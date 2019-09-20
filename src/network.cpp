@@ -45,3 +45,16 @@ void Network::printToConsole() {
         }
     }
 }
+
+void Network::feedForward() {
+    /*
+    Implements the feedforward algorithm.
+    */
+
+    for (int layerNum=0; layerNum<(this->layers.size()-1); layerNum++)
+    {
+
+    }
+}
+
+}

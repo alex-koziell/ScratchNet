@@ -31,10 +31,12 @@ int main() {
     cout << "NUMBER OF INPUT NEURONS: " << topology.at(0) << endl;
     cout << "NUMBER OF OUTPUT NEURONS: " << topology.back() << endl << endl;
 
-    for (int layerNum=0; layerNum<topology.size(); layerNum++) {
+    for (int layerNum=0; layerNum<topology.size(); layerNum++)
+    {
         cout << "Layer " << layerNum << ':';
         cout << setw(15-topology.at(layerNum)*2.5);
-        for (int neuronNum=0; neuronNum<topology.at(layerNum); neuronNum++) {
+        for (int neuronNum=0; neuronNum<topology.at(layerNum); neuronNum++)
+        {
             cout << 'o' << setw(5) << ' ';
         }
         cout << endl;

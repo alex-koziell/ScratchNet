@@ -22,19 +22,18 @@ Matrix::Matrix(int numRows, int numCols, bool isRandom) {
 
     // for each row and each column, initialize the matrix either 0s or
     // random doubles in [0, 1)
-    for (int i=0; i<numRows; i++) {
-
+    for (int i=0; i<numRows; i++)
+    {
         vector<double> colValues;
-
-        for (int j=0; j<numCols; j++) {
+        for (int j=0; j<numCols; j++)
+        {
             double newValue = 0.00;
-            if(isRandom) {
+            if(isRandom)
+            {
                 newValue = this->generateRandomNumber();
             }
-
             colValues.push_back(newValue);
-       }
-
+        }
        this->values.push_back(colValues);
     }
 }
@@ -46,8 +45,10 @@ Matrix* Matrix::transpose() {
 
     Matrix *transposedMatrix = new Matrix(this->numCols, this->numRows, false);
 
-    for (int i=0; i<this->numRows; i++) {
-        for (int j=0; j<this->numCols; j++) {
+    for (int i=0; i<this->numRows; i++)
+    {
+        for (int j=0; j<this->numCols; j++)
+        {
             transposedMatrix->setValue(j, i, this->getValue(i,j));
         }
     }
@@ -60,8 +61,10 @@ void Matrix::printToConsole() {
     Prints the matrix to the console.
     */
 
-    for (int i=0; i<this->numRows; i++) {
-        for (int j=0; j<this->numCols; j++) {
+    for (int i=0; i<this->numRows; i++)
+    {
+        for (int j=0; j<this->numCols; j++)
+        {
             cout << setw(15) << setprecision(5) << this->values.at(i).at(j); // TODO: improve formatting to center matrices with arbitrary number of columns
         }
         cout << endl;
