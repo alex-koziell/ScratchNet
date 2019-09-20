@@ -3,6 +3,7 @@
 #include "../include/neuron.hpp"
 #include "../include/matrix.hpp"
 #include "../include/network.hpp"
+#include "../include/utils/multiplymatrix.hpp"
 
 using namespace std;
 
@@ -45,6 +46,20 @@ int main() {
 
     neuralNetwork->printToConsole();
 
+    /* Matrix Multiplication Test */
+
+    Matrix *A = new Matrix(1, 2, true);
+    Matrix *B = new Matrix(2, 4, true);
+
+    Matrix *C = (new utils::MultiplyMatrix(A, B))->execute();
+
+    cout << endl;
+    cout << "Matrix A:" << endl;
+    A->printToConsole();
+    cout << endl << "Matrix B:" << endl;
+    B->printToConsole();
+    cout << endl << "Matrix C = AB:" << endl;
+    C->printToConsole();
 
     return 0;
 }
