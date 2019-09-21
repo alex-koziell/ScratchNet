@@ -1,24 +1,42 @@
 #include "../include/neuron.hpp"
 
-// constructor
-Neuron::Neuron(double value) {
-    this->value = value;
-
-    // set activation and gradient
+Neuron::Neuron(double input) {
+    this->input = input;
     activate();
     derive();
 }
 
-void Neuron::setValue(double newValue) {
-    this->value = newValue;
+void Neuron::setInput(double newInput) {
+    /*
+    Sets the neuron's input to a new value, then
+    recomputes the activation and its derivative.
+    */
+
+    this->input = newInput;
     activate();
     derive();
 }
 
 void Neuron::activate() {
-    this->activation = this->value / (1 + abs(this->value));
+    /*
+    Sets the activation value of the neuron
+    currently using the fast sigmoid function:
+
+    f(x) = 1 / (1 + |x|)
+
+    */
+
+    this->activation = this->input / (1 + abs(this->input));
 }
 
 void Neuron::derive() {
-    this->derivedVal = this->activation * (1 - this->activation);
+    /*
+    Sets the derivative according to the
+    current the activation function.
+
+    f'(x) = f(x) * (1 - f(x))
+
+    */
+
+    this->derivative = this->activation * (1 - this->activation);
 }

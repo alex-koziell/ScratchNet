@@ -5,39 +5,29 @@
 #include <math.h>
 using namespace std;
 
-class Neuron {
+class Neuron 
+{
+/*
+Neuron class with the essential features required for a 
+feedforward neural network: an input value, an activation value,
+and the ability to get the derivative of its activation.
+*/
+
     public:
-        Neuron(double value);
+        Neuron(double input);
 
-        /*
-        Function to set the input.
-        */
-        void setValue(double value);
+        void setInput(double input);    // Function to set the input.
+        void activate();                // Function to compute the activation.
+        void derive();                  // Function to compute the derivative of the activation.
 
-        /*
-        Functions for computing the activation value
-        and its derivative from the neuron's input value.
-        */ 
-        void activate();
-        void derive();
-
-        /*
-        Functions for accessing the input value,
-        activation and derivative of the neuron.
-        */
-        double getValue() { return this->value; }
-        double getActivation() { return this->activation; }
-        double getDerivedVal() { return this->derivedVal; }
+        double getInput()      { return this->input; }      // Accessor for input value.
+        double getActivation() { return this->activation; } // Accessor for activation value.
+        double getDerivative() { return this->derivative; } // Accessor for the derrivative of the activation.
 
     private:
-        // input value
-        double value;
-
-        // activation (between 0 and 1)
-        double activation;
-
-        // approximate derivative of the activation
-        double derivedVal;
+        double input;       // Input value
+        double activation;  // Activation of the neuron.
+        double derivative;  // Derivative of the neuron's activation.
 };
 
 #endif
