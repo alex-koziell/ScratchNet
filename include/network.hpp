@@ -8,31 +8,28 @@
 using namespace std;
 
 class Network {
-    public:
-        Network(vector<int> topology);
+    /*
+    Class that embodies the whole network, given a vector 'layerSizes',
+    whose length is the number of layers, and whose elements dictate the
+    number of neurons in each layer.
+    */
 
-        /*
-        Data Visualisation
-        */
-        void printToConsole();
+    public:
+        Network(vector<int> layerSizes);
+
+        void printToConsole(); // Displays the structure of the network in the console
+
+        void setInput(vector<double> input); // Sets the activation values of the input neurons.
         
-        /*
-        Parameter setting.
-        */
-        void setInput(vector<double> input);
-        
-        /*
-        Learning functionality: feedforward, backpropagation
-        */
-       void feedForward();
-       void backPropagate();
+       void feedForward();      // Implements feed forward part of learning.
+       void backPropagate();    // Implements back propagtion part of learning.
     
     private:
-        vector<int> topology; // a vector of integers corresponding to the number of neurons in each layer
-        int numLayers;
-        vector<Layer *> layers; // vector of pointers to Layer objects
-        vector<Matrix *> weightMatrices;
-        vector<double> input;
+        vector<int> layerSizes;             // A vector of integers containing the number of neurons in each layer.
+        int numLayers;                      // A separate variable equal to the length of layerSizes, for more concise code.
+        vector<Layer *> layers;             // A vector containing the actual layer objects of the network. 
+        vector<Matrix *> weightMatrices;    // A vector of weight matrices for the connections between adjacent layers.
+        vector<double> input;               // Inputs of the network (the activations of the input neurons).
 
 };
 

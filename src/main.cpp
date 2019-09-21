@@ -9,13 +9,13 @@ using namespace std;
 
 int main() {
 
-    /* topology: contains the number of neurons in each layer. */
-    vector<int> topology;
-    topology.push_back(3);
-    topology.push_back(2);
-    topology.push_back(3);
+    /* layerSizes: the number of neurons in each layer. */
+    vector<int> layerSizes;
+    layerSizes.push_back(3);
+    layerSizes.push_back(2);
+    layerSizes.push_back(3);
 
-    /* input: the starting values of the input neurons. */
+    /* input: the input values of the neurons in the input layer. */
     vector<double> input;
     input.push_back(1.0);
     input.push_back(0.0);
@@ -25,31 +25,31 @@ int main() {
     cout << "\t CREATING NEW NETWORK..." << endl;
     cout << "//--------------------------------//" << endl << endl;
 
-    Network *neuralNetwork = new Network(topology);
+    Network *neuralNetwork = new Network(layerSizes);
 
-    cout << "NUMBER OF LAYERS: " << topology.size() << endl;
-    cout << "NUMBER OF INPUT NEURONS: " << topology.at(0) << endl;
-    cout << "NUMBER OF OUTPUT NEURONS: " << topology.back() << endl << endl;
+    cout << "NUMBER OF LAYERS: " << layerSizes.size() << endl;
+    cout << "NUMBER OF INPUT NEURONS: " << layerSizes.at(0) << endl;
+    cout << "NUMBER OF OUTPUT NEURONS: " << layerSizes.back() << endl << endl;
 
-    for (int layerNum=0; layerNum<topology.size(); layerNum++)
+    for (int layerNum=0; layerNum<layerSizes.size(); layerNum++)
     {
         cout << "Layer " << layerNum << ':';
-        cout << setw(15-topology.at(layerNum)*2.5);
-        for (int neuronNum=0; neuronNum<topology.at(layerNum); neuronNum++)
+        cout << setw(15-layerSizes.at(layerNum)*2.5);
+        for (int neuronNum=0; neuronNum<layerSizes.at(layerNum); neuronNum++)
         {
+            cout << '|' << setw(5) << ' ';
             cout << 'o' << setw(5) << ' ';
+            cout << '|' << setw(5) << ' ';
         }
         cout << endl;
     }
     cout << endl;
 
-
+    /* Set the input values of the network, then print to console. */
     neuralNetwork->setInput(input);
-
     neuralNetwork->printToConsole();
 
     /* Matrix Multiplication Test */
-
     Matrix *A = new Matrix(1, 2, true);
     Matrix *B = new Matrix(2, 4, true);
 
