@@ -1,48 +1,71 @@
 #include "../include/layer.hpp"
 #include "../include/matrix.hpp"
 
-Layer::Layer(int size) {
-    this->size = size;
+Layer::Layer(int numNeurons) {
+    /*
+    Initializes the layer with the appropriate number of neurons.
+    Indices in the neuron vector start at 0, so we have neuron indices
+    from 0 to numNeurons-1.
+    */
 
-    // cout << "CREATING LAYER OF " << size << " NEURONS" << endl;
-    for (int neuronIndex=0; neuronIndex<size; neuronIndex++) {
-        // cout << "CREATING NEURON" << endl;
-        Neuron *newNeuron = new Neuron(0.00);
+    this->numNeurons = numNeurons;
+    for (int neuronIndex=0; neuronIndex<numNeurons; neuronIndex++)
+    {
+        Neuron *newNeuron = new Neuron(0.00); // currently initializes layer with neuron inputs all 0.0 - to be researched
         this->neurons.push_back(newNeuron);
-        // cout << this->neurons.size() << " NEURONS CREATED IN CURRENT LAYER." << endl;
     }
 }
 
-void Layer::setValue(int neuronIndex, double input) {
+void Layer::setInputAt(int neuronIndex, double input) {
+    /*
+    Sets the input of neuron at 'neuronIndex' in the neurons vector.
+    */
+
     this->neurons.at(neuronIndex)->setInput(input);
 }
 
-Matrix* Layer::getValues() {
-    Matrix *valuesMatrix = new Matrix(1, this->size, false);
+Matrix* Layer::getInputs() {
+    /*
+    Returns the inputs of the neurons in the layer as a matrix object
+    (rather than a vector: this allows us to use the matrix multiplication
+    'function class').
+    */
 
-    for (int i=0; i<this->size; i++) {
-        valuesMatrix->setValue(0, i, this->neurons.at(i)->getInput());
+    Matrix *inputsMatrix = new Matrix(1, this->numNeurons, false);
+
+    for (int neuronIndex=0; neuronIndex<this->numNeurons; numNeurons++)
+    { // uses the getInput() accessor function of the neuron class to map the neurons' input values to inputsMatrix.
+        inputsMatrix->setValue(0, neuronIndex, this->neurons.at(neuronIndex)->getInput());
     }
 
-    return valuesMatrix;
+    return inputsMatrix;
 }
 
 Matrix* Layer::getActivations() {
-    Matrix *valuesMatrix = new Matrix(1, this->size, false);
+    /*
+    Returns the activation of each neuron in the layer.
+    */
 
-    for (int i=0; i<this->size; i++) {
-        valuesMatrix->setValue(0, i, this->neurons.at(i)->getActivation());
+    Matrix *activationMatrix = new Matrix(1, this->numNeurons, false);
+
+    for (int neuronIndex=0; neuronIndex<this->numNeurons; numNeurons++)
+    {   // uses accessor function of the neuron class similarly to Layer::getInputs()
+        activationMatrix->setValue(0, neuronIndex, this->neurons.at(neuronIndex)->getActivation());
     }
 
-    return valuesMatrix;
+    return activationMatrix;
 }
 
 Matrix* Layer::getDerivatives() {
-    Matrix *valuesMatrix = new Matrix(1, this->size, false);
+    /*
+    Returns the derivative of the activation for each neuron in the layer.
+    */
 
-    for (int i=0; i<this->size; i++) {
-        valuesMatrix->setValue(0, i, this->neurons.at(i)->getDerivative());
+    Matrix *derivativesMatrix = new Matrix(1, this->numNeurons, false);
+
+    for (int neuronIndex=0; neuronIndex<this->numNeurons; neuronIndex++) {
+        derivativesMatrix->setValue(0, neuronIndex, this->neurons.at(neuronIndex)->getDerivative());
     }
 
-    return valuesMatrix;     
+    return derivativesMatrix;     
 }

@@ -7,19 +7,25 @@
 
 using namespace std;
 
-class Layer {
+class Layer
+{
+/*
+Class to hold a layer of neurons, allowing for layer-wise
+operations on the network.
+*/
+
     public:
-        Layer(int size);
+        Layer(int numNeurons);
 
-        void setValue(int neuronIndex, double value); // set value of neuron at neuronIndex
+        void setInputAt(int neuronIndex, double input); // Set the value of the neuron at neuronIndex to the value specified by input.
 
-        Matrix* getValues();
+        Matrix* getInputs();    // Returns a 
         Matrix* getActivations();
         Matrix* getDerivatives();
 
     private:
-        int size;
-        vector<Neuron *> neurons;
+        int numNeurons;             // Number of neurons in the layer.
+        vector<Neuron *> neurons;   // A vector holding the layer's actual neuron objects.
 };
 
 #endif

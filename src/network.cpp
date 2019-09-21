@@ -27,7 +27,7 @@ void Network::setInput(vector<double> input) {
     this->input = input;
 
     for (int i=0; i<input.size(); i++) {
-        this->layers.at(0)->setValue(i, input.at(i));
+        this->layers.at(0)->setInputAt(i, input.at(i));
     }
 }
 
@@ -36,7 +36,7 @@ void Network::printToConsole() {
         cout << "LAYER " << i << ":" << endl;
 
         if (i==0) {
-            Matrix *thisLayer = this->layers.at(i)->getValues();
+            Matrix *thisLayer = this->layers.at(i)->getInputs();
             thisLayer->printToConsole();
 
         } else {
