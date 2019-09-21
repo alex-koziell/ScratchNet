@@ -16,6 +16,12 @@ Layer::Layer(int numNeurons) {
     }
 }
 
+/*
+TODO: create a more functional approach to retrieving and setting values;
+currently Layer has wayyy to much repeated for loops in getInputs(), getActivations(), etc. 
+*/
+
+
 void Layer::setInputAt(int neuronIndex, double input) {
     /*
     Sets the input of neuron at 'neuronIndex' in the neurons vector.
@@ -63,9 +69,10 @@ Matrix* Layer::getDerivatives() {
 
     Matrix *derivativesMatrix = new Matrix(1, this->numNeurons, false);
 
-    for (int neuronIndex=0; neuronIndex<this->numNeurons; neuronIndex++) {
+    for (int neuronIndex=0; neuronIndex<this->numNeurons; neuronIndex++)
+    {
         derivativesMatrix->setValue(0, neuronIndex, this->neurons.at(neuronIndex)->getDerivative());
     }
 
-    return derivativesMatrix;     
+    return derivativesMatrix;  
 }
