@@ -40,7 +40,7 @@ Matrix::Matrix(int numRows, int numCols, bool isRandom) {
 
 Matrix* Matrix::transpose() {
     /*
-    Returns the transposed matrix.
+    Returns the transpose of this instance of the matrix.
     */
 
     Matrix *transposedMatrix = new Matrix(this->numCols, this->numRows, false);
