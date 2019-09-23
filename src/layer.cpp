@@ -39,7 +39,7 @@ Matrix* Layer::getInputs() {
 
     Matrix *inputsMatrix = new Matrix(1, this->numNeurons, false);
 
-    for (int neuronIndex=0; neuronIndex<this->numNeurons; ++numNeurons)
+    for (int neuronIndex=0; neuronIndex<this->numNeurons; ++neuronIndex)
     { // uses the getInput() accessor function of the neuron class to map the neurons' input values to inputsMatrix.
         inputsMatrix->setValue(0, neuronIndex, this->neurons.at(neuronIndex)->getInput());
     }
@@ -54,7 +54,7 @@ Matrix* Layer::getActivations() {
 
     Matrix *activationMatrix = new Matrix(1, this->numNeurons, false);
 
-    for (int neuronIndex=0; neuronIndex<this->numNeurons; ++numNeurons)
+    for (int neuronIndex=0; neuronIndex<this->numNeurons; ++neuronIndex)
     {   // uses accessor function of the neuron class similarly to Layer::getInputs()
         activationMatrix->setValue(0, neuronIndex, this->neurons.at(neuronIndex)->getActivation());
     }

@@ -37,7 +37,7 @@ int main() {
 
     /* Set the input values of the network, then print to console. */
     neuralNetwork->setInput(input);
-    // neuralNetwork->printToConsole(); // runs slow - need to work out why
+    neuralNetwork->printToConsole(); // runs slow - need to work out why
 
     /* Matrix Multiplication Test */
     Matrix *A = new Matrix(1, 2, true);

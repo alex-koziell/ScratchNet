@@ -52,6 +52,7 @@ void Network::printToConsole() {
     Prints the input values of the neurons in the input layer,
     then the activations of the neurons in subsequent layers.
     */
+
     for (int layerNum=0; layerNum<numLayers; ++layerNum) {
 
         if (layerNum==0)
