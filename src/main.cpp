@@ -3,7 +3,7 @@
 #include "../include/neuron.hpp"
 #include "../include/matrix.hpp"
 #include "../include/network.hpp"
-#include "../include/utils/multiplymatrix.hpp"
+#include "../include/utils/multiplymatrices.hpp"
 
 using namespace std;
 
@@ -53,7 +53,7 @@ int main() {
     Matrix *A = new Matrix(1, 2, true);
     Matrix *B = new Matrix(2, 4, true);
 
-    Matrix *C = (new utils::MultiplyMatrix(A, B))->execute();
+    Matrix *C = (new utils::MultiplyMatrices(A, B))->execute();
 
     cout << endl;
     cout << "Matrix A:" << endl;
