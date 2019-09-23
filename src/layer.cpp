@@ -9,7 +9,7 @@ Layer::Layer(int numNeurons) {
     */
 
     this->numNeurons = numNeurons;
-    for (int neuronIndex=0; neuronIndex<numNeurons; neuronIndex++)
+    for (int neuronIndex=0; neuronIndex<numNeurons; ++neuronIndex)
     {
         Neuron *newNeuron = new Neuron(0.00); // currently initializes layer with neuron inputs all 0.0 - to be researched
         this->neurons.push_back(newNeuron);
@@ -39,7 +39,7 @@ Matrix* Layer::getInputs() {
 
     Matrix *inputsMatrix = new Matrix(1, this->numNeurons, false);
 
-    for (int neuronIndex=0; neuronIndex<this->numNeurons; numNeurons++)
+    for (int neuronIndex=0; neuronIndex<this->numNeurons; ++numNeurons)
     { // uses the getInput() accessor function of the neuron class to map the neurons' input values to inputsMatrix.
         inputsMatrix->setValue(0, neuronIndex, this->neurons.at(neuronIndex)->getInput());
     }
@@ -54,7 +54,7 @@ Matrix* Layer::getActivations() {
 
     Matrix *activationMatrix = new Matrix(1, this->numNeurons, false);
 
-    for (int neuronIndex=0; neuronIndex<this->numNeurons; numNeurons++)
+    for (int neuronIndex=0; neuronIndex<this->numNeurons; ++numNeurons)
     {   // uses accessor function of the neuron class similarly to Layer::getInputs()
         activationMatrix->setValue(0, neuronIndex, this->neurons.at(neuronIndex)->getActivation());
     }
@@ -69,7 +69,7 @@ Matrix* Layer::getDerivatives() {
 
     Matrix *derivativesMatrix = new Matrix(1, this->numNeurons, false);
 
-    for (int neuronIndex=0; neuronIndex<this->numNeurons; neuronIndex++)
+    for (int neuronIndex=0; neuronIndex<this->numNeurons; ++neuronIndex)
     {
         derivativesMatrix->setValue(0, neuronIndex, this->neurons.at(neuronIndex)->getDerivative());
     }

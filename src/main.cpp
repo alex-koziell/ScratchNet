@@ -22,32 +22,22 @@ int main() {
     input.push_back(1.0);
 
     cout << "//--------------------------------//" << endl;
-    cout << "\t CREATING NEW NETWORK..." << endl;
+    cout << "\tCREATING NEW NETWORK..." << endl;
     cout << "//--------------------------------//" << endl << endl;
 
     Network *neuralNetwork = new Network(layerSizes);
 
-    cout << "NUMBER OF LAYERS: " << layerSizes.size() << endl;
-    cout << "NUMBER OF INPUT NEURONS: " << layerSizes.at(0) << endl;
-    cout << "NUMBER OF OUTPUT NEURONS: " << layerSizes.back() << endl << endl;
-
-    for (int layerNum=0; layerNum<layerSizes.size(); layerNum++)
+    cout << "NUMBER OF LAYERS: " << layerSizes.size() << endl << endl;
+    cout << "NUMBER OF INPUT NEURONS (LAYER 0): " << layerSizes.at(0) << endl;
+    for (int layerNum=1; layerNum<layerSizes.size()-1; ++layerNum)
     {
-        cout << "Layer " << layerNum << ':';
-        cout << setw(15-layerSizes.at(layerNum)*2.5);
-        for (int neuronNum=0; neuronNum<layerSizes.at(layerNum); neuronNum++)
-        {
-            cout << '|' << setw(5) << ' ';
-            cout << 'o' << setw(5) << ' ';
-            cout << '|' << setw(5) << ' ';
-        }
-        cout << endl;
+    cout << "LAYER " << layerNum << " SIZE:\t\t\t   " << layerSizes.at(layerNum) << endl;
     }
-    cout << endl;
+    cout << "NUMBER OF OUTPUT NEURONS:          " << layerSizes.back() << endl << endl;
 
     /* Set the input values of the network, then print to console. */
     neuralNetwork->setInput(input);
-    neuralNetwork->printToConsole();
+    // neuralNetwork->printToConsole(); // runs slow - need to work out why
 
     /* Matrix Multiplication Test */
     Matrix *A = new Matrix(1, 2, true);

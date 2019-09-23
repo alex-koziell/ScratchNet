@@ -24,12 +24,12 @@ Matrix* utils::MultiplyMatrices::execute() {
     20/Sep/2019
     */
 
-   for (int i=0; i < A->getNumRows(); i++)          // row i in matrix A
+   for (int i=0; i < A->getNumRows(); ++i)          // row i in matrix A
    {
-       for (int j=0; j < B->getNumCols(); j++)      // column j in matrix B
+       for (int j=0; j < B->getNumCols(); ++j)      // column j in matrix B
        {
            double C_ij = 0;                         // entry i,j in matrix C
-           for (int k=0; k < A->getNumCols(); k++)
+           for (int k=0; k < A->getNumCols(); ++k)
            {
                C_ij += this->A->getValue(i, k)      // Perform the dot product of the row vector i in A
                      * this->B->getValue(k, j);     // with column vector j in B
