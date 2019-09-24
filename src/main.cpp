@@ -16,6 +16,7 @@ int main() {
     - can we put foreach loops anywhere?
     - null pointer function argument checks
     - prefer pass by reference & for classes whenever possible
+    - bias neurons
     */
 
     cout << "//--------------------------------//" << endl;
