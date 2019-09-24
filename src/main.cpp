@@ -3,7 +3,7 @@
 #include "../include/neuron.hpp"
 #include "../include/matrix.hpp"
 #include "../include/network.hpp"
-#include "../include/utils/multiplymatrices.hpp"
+#include "../include/utils/matrixalgebra.hpp"
 
 using namespace std;
 
@@ -42,22 +42,24 @@ int main() {
     neuralNetwork->printToConsole();
 
     /* Matrix Multiplication Test */
-    Matrix *A = new Matrix(1, 2, true);
-    Matrix *B = new Matrix(2, 4, true);
+    Matrix A = Matrix(1, 2, true);
+    Matrix B = Matrix(2, 4, true);
 
-    Matrix *C = (new utils::MultiplyMatrices(A, B))->execute();
+    Matrix C = utils::multiplyMatrices(A, B);
 
     cout << endl;
     cout << "Matrix A:" << endl;
-    A->printToConsole();
+    A.printToConsole();
     cout << endl << "Matrix B:" << endl;
-    B->printToConsole();
+    B.printToConsole();
     cout << endl << "Matrix C = AB:" << endl;
-    C->printToConsole();
+    C.printToConsole();
 
     /* Test transpose */
-    Matrix D = Matrix(1, 2, true);
+    cout << endl << "D:" << endl;
+    Matrix D = Matrix(3, 2, true);
     D.printToConsole();
+    cout << endl << "D tranposed:";
     Matrix DT = D.transpose();
     DT.printToConsole();
 
