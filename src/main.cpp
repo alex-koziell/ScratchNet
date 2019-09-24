@@ -14,6 +14,8 @@ int main() {
     - references
     - function templates/functionals
     - can we put foreach loops anywhere?
+    - null pointer function argument checks
+    - prefer pass by reference & for classes whenever possible
     */
 
     cout << "//--------------------------------//" << endl;

@@ -23,7 +23,7 @@ class Matrix {
         values, so the implementations of these two functions are defined in the header file.
         */
         void   setValue(int row, int col, double value) { this->values.at(row).at(col) = value; }
-        double getValue(int row, int col)               { return this->values.at(row).at(col); }
+        double getValue(int row, int col)               { return this->values.at(row).at(col);  }
 
         int getNumRows() { return this->numRows; }
         int getNumCols() { return this->numCols; }
