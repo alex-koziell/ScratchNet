@@ -16,7 +16,7 @@ class Matrix {
         Matrix(int numRows, int numCols, bool isRandom);
         double generateRandomNumber();
 
-        Matrix* transpose(); // Returns the matrix transpose.
+        Matrix transpose(); // Returns the matrix transpose.
 
         /*
         These are most likely the simplest and most computationally efficient way to set and get

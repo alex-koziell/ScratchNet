@@ -38,18 +38,18 @@ Matrix::Matrix(int numRows, int numCols, bool isRandom) {
     }
 }
 
-Matrix* Matrix::transpose() {
+Matrix Matrix::transpose() {
     /*
     Returns the transpose of this instance of the matrix.
     */
 
-    Matrix *transposedMatrix = new Matrix(this->numCols, this->numRows, false);
+    Matrix transposedMatrix = Matrix(this->numCols, this->numRows, false);
 
     for (int i=0; i<this->numRows; ++i)
     {
         for (int j=0; j<this->numCols; ++j)
         {
-            transposedMatrix->setValue(j, i, this->getValue(i,j));
+            transposedMatrix.setValue(j, i, this->getValue(i,j));
         }
     }
 

@@ -55,5 +55,11 @@ int main() {
     cout << endl << "Matrix C = AB:" << endl;
     C->printToConsole();
 
+    /* Test transpose */
+    Matrix D = Matrix(1, 2, true);
+    D.printToConsole();
+    Matrix DT = D.transpose();
+    DT.printToConsole();
+
     return 0;
 }
