@@ -8,6 +8,13 @@
 using namespace std;
 
 int main() {
+    /*
+    TODO:
+    - const
+    - references
+    - function templates/functionals
+    - can we put foreach loops anywhere?
+    */
 
     /* layerSizes: the number of neurons in each layer. */
     vector<int> layerSizes;
@@ -37,7 +44,7 @@ int main() {
 
     /* Set the input values of the network, then print to console. */
     neuralNetwork->setInput(input);
-    neuralNetwork->printToConsole(); // runs slow - need to work out why
+    neuralNetwork->printToConsole();
 
     /* Matrix Multiplication Test */
     Matrix *A = new Matrix(1, 2, true);
