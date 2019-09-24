@@ -16,21 +16,14 @@ int main() {
     - can we put foreach loops anywhere?
     */
 
-    /* layerSizes: the number of neurons in each layer. */
-    vector<int> layerSizes;
-    layerSizes.push_back(3);
-    layerSizes.push_back(2);
-    layerSizes.push_back(3);
-
-    /* input: the input values of the neurons in the input layer. */
-    vector<double> input;
-    input.push_back(1.0);
-    input.push_back(0.0);
-    input.push_back(1.0);
-
     cout << "//--------------------------------//" << endl;
     cout << "\tCREATING NEW NETWORK..." << endl;
     cout << "//--------------------------------//" << endl << endl;
+
+    /* layerSizes: the number of neurons in each layer. */
+    vector<int> layerSizes {3, 2, 1};
+    /* input: the input values of the neurons in the input layer. */
+    vector<double> input {1, 1, 1};
 
     Network *neuralNetwork = new Network(layerSizes);
 
