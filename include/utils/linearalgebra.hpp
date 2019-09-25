@@ -19,6 +19,8 @@ namespace linalg
     double dotProduct(std::vector<double> &v, std::vector<double>);
 
     Matrix transposeMatrix(Matrix &M); // Returns the matrix transpose.
+
+    void printToConsole(vector<double> &v);
 }
 
 #endif

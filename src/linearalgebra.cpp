@@ -2,11 +2,11 @@
 
 using namespace std;
 
-Matrix linalg::multiplyMatrices(Matrix &A, Matrix &B) {
+Matrix linalg::multiplyMatrices(Matrix &A, Matrix &B)
+{
     /*
     Multiplies two matrices in the order AB to return a matrix C
     AB = C
-    ...to be refined (if necessary) after I've studied some more numerical analysis
     */
 
     // Check that the matrix dimensions allow matrix multiplication to actually be carried out.
@@ -36,7 +36,38 @@ Matrix linalg::multiplyMatrices(Matrix &A, Matrix &B) {
    return C;
 }
 
-Matrix linalg::transposeMatrix(Matrix &M) {
+vector<double> linalg::matrixVectorProduct(Matrix &A, vector<double> &v)
+{
+    /*
+    Multiplys a matrix A with a vector v to return a vector u.
+    Av = u
+    */
+
+    // check dimensions are correct
+    if (A.getNumCols() != v.size())
+    {
+        cerr << "Matrix A is of dimensions (" << A.getNumRows() << "," << A.getNumCols() << ")," << endl
+        << "...but vector v is of size " << v.size() << "!" << endl;
+        assert(false);
+    }
+
+    vector<double> u;
+
+    for (int i=0; i<A.getNumRows(); ++i)
+    {
+        double u_i = 0;
+        for (int j=0; j<A.getNumCols(); ++j)
+        {
+            u_i += A.getValue(i,j) * v.at(j);
+        }
+        u.push_back(u_i);
+    }
+
+    return u;
+}
+
+Matrix linalg::transposeMatrix(Matrix &M)
+{
     /*
     Returns the transpose of this instance of the matrix.
     */
@@ -52,4 +83,18 @@ Matrix linalg::transposeMatrix(Matrix &M) {
     }
 
     return transposedMatrix;
+}
+
+void linalg::printToConsole(vector<double> &v) {
+    /*
+    Prints a vector to the console.
+    */
+    
+    cout << "[ ";
+    for (int i=0; i<v.size(); ++i)
+    {
+        cout << v.at(i) << " ";
+    }
+    cout << "]" << endl;
+
 }

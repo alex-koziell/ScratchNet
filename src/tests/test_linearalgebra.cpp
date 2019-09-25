@@ -10,8 +10,8 @@ void test_multiplyMatrices()
     /*
     Matrix Multiplication Test
     */
-    Matrix A = Matrix(1, 2, true);
-    Matrix B = Matrix(2, 3, true);
+    Matrix A {1, 2, true};
+    Matrix B {2, 3, true};
 
     Matrix C = linalg::multiplyMatrices(A, B);
 
@@ -22,6 +22,24 @@ void test_multiplyMatrices()
     cout << endl << "Matrix C = AB:" << endl;
     C.printToConsole();
     cout << endl;
+
+}
+
+void test_matrixVectorProduct() {
+    /*
+    Matrix-vector multiplication test.
+    */
+
+    vector<double> v {1, 2, 3};
+    Matrix A {3, 3, true};
+    vector<double> u {linalg::matrixVectorProduct(A, v)};
+
+    cout<<"Matrix A:"<<endl;
+    A.printToConsole();
+    cout<<"times vector v:"<<endl;
+    linalg::printToConsole(v);
+    cout<<"equals vector u:"<<endl;
+    linalg::printToConsole(u);
 
 }
 

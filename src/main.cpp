@@ -23,6 +23,7 @@ int main() {
     
     /* Linear algebra tests */
     test_multiplyMatrices();
+    test_matrixVectorProduct();
     test_transposeMatrix();
     
     /* Initialize network */
