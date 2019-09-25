@@ -38,24 +38,6 @@ Matrix::Matrix(int numRows, int numCols, bool isRandom) {
     }
 }
 
-Matrix Matrix::transpose() {
-    /*
-    Returns the transpose of this instance of the matrix.
-    */
-
-    Matrix transposedMatrix = Matrix(m_numCols, m_numRows, false);
-
-    for (int i=0; i<m_numRows; ++i)
-    {
-        for (int j=0; j<m_numCols; ++j)
-        {
-            transposedMatrix.setValue(j, i, getValue(i,j));
-        }
-    }
-
-    return transposedMatrix;
-}
-
 void Matrix::printToConsole() {
     /*
     Prints the matrix to the console.

@@ -16,8 +16,6 @@ class Matrix {
         Matrix(int numRows, int numCols, bool isRandom);
         double generateRandomNumber();
 
-        Matrix transpose(); // Returns the matrix transpose.
-
         void   setValue(int row, int col, double value) { m_values.at(row).at(col) = value; }
         double getValue(int row, int col)               { return m_values.at(row).at(col);  }
 

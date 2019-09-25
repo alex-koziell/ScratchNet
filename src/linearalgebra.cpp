@@ -35,3 +35,21 @@ Matrix linalg::multiplyMatrices(Matrix &A, Matrix &B) {
 
    return C;
 }
+
+Matrix linalg::transposeMatrix(Matrix &M) {
+    /*
+    Returns the transpose of this instance of the matrix.
+    */
+
+    Matrix transposedMatrix = Matrix(M.getNumCols(), M.getNumRows(), false);
+
+    for (int i=0; i<M.getNumRows(); ++i)
+    {
+        for (int j=0; j<M.getNumCols(); ++j)
+        {
+            transposedMatrix.setValue(j, i, M.getValue(i,j));
+        }
+    }
+
+    return transposedMatrix;
+}

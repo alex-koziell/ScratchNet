@@ -7,8 +7,6 @@
 
 #include "../matrix.hpp"
 
-using namespace std;
-
 /*
 Idea: create a class that performs the desired function
 i.e. an object-oriented function approach.
@@ -17,6 +15,10 @@ i.e. an object-oriented function approach.
 namespace linalg
 {
     Matrix multiplyMatrices(Matrix &A, Matrix &B);
+    std::vector<double> matrixVectorProduct(Matrix &A, std::vector<double> &v);
+    double dotProduct(std::vector<double> &v, std::vector<double>);
+
+    Matrix transposeMatrix(Matrix &M); // Returns the matrix transpose.
 }
 
 #endif
