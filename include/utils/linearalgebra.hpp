@@ -1,5 +1,5 @@
-#ifndef _MATRIX_ALGEBRA_HPP_
-#define _MATRIX_ALGEBRA_HPP_
+#ifndef _LINEAR_ALGEBRA_HPP_
+#define _LINEAR_ALGEBRA_HPP_
 
 #include <iostream>
 #include <vector>
@@ -14,7 +14,7 @@ Idea: create a class that performs the desired function
 i.e. an object-oriented function approach.
 */
 
-namespace utils
+namespace linalg
 {
     Matrix multiplyMatrices(Matrix &A, Matrix &B);
 }

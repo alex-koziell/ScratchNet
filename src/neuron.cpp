@@ -1,7 +1,7 @@
 #include "../include/neuron.hpp"
 
 Neuron::Neuron(double input) {
-    this->input = input;
+    m_input = input;
     activate();
     derive();
 }
@@ -12,7 +12,7 @@ void Neuron::setInput(double newInput) {
     recomputes the activation and its derivative.
     */
 
-    this->input = newInput;
+    m_input = newInput;
     activate();
     derive();
 }
@@ -26,7 +26,7 @@ void Neuron::activate() {
 
     */
 
-    this->activation = this->input / (1 + abs(this->input));
+    m_activation = m_input / (1 + abs(m_input));
 }
 
 void Neuron::derive() {
@@ -38,5 +38,5 @@ void Neuron::derive() {
 
     */
 
-    this->derivative = this->activation * (1 - this->activation);
+    m_derivative = m_activation * (1 - m_activation);
 }

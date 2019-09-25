@@ -20,14 +20,14 @@ and the ability to get the derivative of its activation.
         void activate();                // Function to compute the activation.
         void derive();                  // Function to compute the derivative of the activation.
 
-        double getInput()      { return this->input; }      // Accessor for input value.
-        double getActivation() { return this->activation; } // Accessor for activation value.
-        double getDerivative() { return this->derivative; } // Accessor for the derrivative of the activation.
+        double getInput()      { return m_input; }      // Accessor for input value.
+        double getActivation() { return m_activation; } // Accessor for activation value.
+        double getDerivative() { return m_derivative; } // Accessor for the derrivative of the activation.
 
     private:
-        double input;       // Input value
-        double activation;  // Activation of the neuron.
-        double derivative;  // Derivative of the neuron's activation.
+        double m_input;       // Input value
+        double m_activation;  // Activation of the neuron.
+        double m_derivative;  // Derivative of the neuron's activation.
 };
 
 #endif

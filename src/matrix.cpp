@@ -17,8 +17,8 @@ double Matrix::generateRandomNumber() {
 }
 
 Matrix::Matrix(int numRows, int numCols, bool isRandom) {
-    this->numRows = numRows;
-    this->numCols = numCols;
+    m_numRows = numRows;
+    m_numCols = numCols;
 
     // for each row and each column, initialize the matrix either 0s or
     // random doubles in [0, 1)
@@ -30,11 +30,11 @@ Matrix::Matrix(int numRows, int numCols, bool isRandom) {
             double newValue = 0.00;
             if(isRandom)
             {
-                newValue = this->generateRandomNumber();
+                newValue = generateRandomNumber();
             }
             colValues.push_back(newValue);
         }
-       this->values.push_back(colValues);
+       m_values.push_back(colValues);
     }
 }
 
@@ -43,13 +43,13 @@ Matrix Matrix::transpose() {
     Returns the transpose of this instance of the matrix.
     */
 
-    Matrix transposedMatrix = Matrix(this->numCols, this->numRows, false);
+    Matrix transposedMatrix = Matrix(m_numCols, m_numRows, false);
 
-    for (int i=0; i<this->numRows; ++i)
+    for (int i=0; i<m_numRows; ++i)
     {
-        for (int j=0; j<this->numCols; ++j)
+        for (int j=0; j<m_numCols; ++j)
         {
-            transposedMatrix.setValue(j, i, this->getValue(i,j));
+            transposedMatrix.setValue(j, i, getValue(i,j));
         }
     }
 
@@ -61,11 +61,11 @@ void Matrix::printToConsole() {
     Prints the matrix to the console.
     */
 
-    for (int i=0; i<this->numRows; ++i)
+    for (int i=0; i<m_numRows; ++i)
     {
-        for (int j=0; j<this->numCols; ++j)
+        for (int j=0; j<m_numCols; ++j)
         {
-            cout << setw(15) << setprecision(5) << this->values.at(i).at(j); // TODO: improve formatting to center matrices with arbitrary number of columns
+            cout << setw(15) << setprecision(5) << m_values.at(i).at(j); // TODO: improve formatting to center matrices with arbitrary number of columns
         }
         cout << endl;
     }

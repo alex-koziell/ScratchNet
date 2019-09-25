@@ -24,8 +24,8 @@ operations on the network.
         Matrix getDerivatives();   // ^
 
     private:
-        int numNeurons;             // Number of neurons in the layer.
-        vector<Neuron> neurons;     // A vector holding the this layer's neurons.
+        int m_numNeurons;           // Number of neurons in the layer.
+        vector<Neuron> m_neurons;   // A vector holding the this layer's neurons.
 };
 
 #endif

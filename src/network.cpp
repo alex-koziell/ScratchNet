@@ -1,19 +1,19 @@
 #include "../include/network.hpp"
 
 Network::Network(vector<int> layerSizes) {
-    this->layerSizes = layerSizes;
-    this->numLayers = layerSizes.size();
+    m_layerSizes = layerSizes;
+    m_numLayers = layerSizes.size();
 
     // cout << "CREATING " << numLayers << " LAYERS..." << endl;
-    for (int layerNum=0; layerNum<numLayers; ++layerNum)
+    for (int layerNum=0; layerNum<m_numLayers; ++layerNum)
     { 
-        this->layers.push_back(Layer(layerSizes.at(layerNum)));                     // Then add it to this network's vector of layers.
+        m_layers.push_back(Layer(layerSizes.at(layerNum)));                     // Then add it to this network's vector of layers.
     }
-    // cout << this->layers.size() << " LAYERS CREATED." << endl;
+    // cout << m_layers.size() << " LAYERS CREATED." << endl;
 
-    for (int layerNum=0; layerNum<numLayers-1; ++layerNum)
+    for (int layerNum=0; layerNum<m_numLayers-1; ++layerNum)
     {
-        this->weightMatrices.push_back
+        m_weightMatrices.push_back
         (
             Matrix
             ( // Create a new weight matrix for each pair of adjacent layers.
@@ -30,11 +30,11 @@ void Network::setInput(vector<double> input) {
     Sets the inputs of the neurons in the 0th (input) layer.
     */
 
-    this->input = input;
+    m_input = input;
 
     for (int neuronIndex=0; neuronIndex<input.size(); ++neuronIndex)
     {
-        this->layers.at(0).setInputAt(neuronIndex, input.at(neuronIndex));
+        m_layers.at(0).setInputAt(neuronIndex, input.at(neuronIndex));
     }
 }
 
@@ -43,7 +43,7 @@ void Network::feedForward() {
     Implements the feedforward algorithm.
     */
 
-    for (int layerNum=0; layerNum<(this->layers.size()-1); ++layerNum)
+    for (int layerNum=0; layerNum<(m_layers.size()-1); ++layerNum)
     {
 
     }
@@ -55,16 +55,16 @@ void Network::printToConsole() {
     then the activations of the neurons in subsequent layers.
     */
 
-    for (int layerNum=0; layerNum<numLayers; ++layerNum) {
+    for (int layerNum=0; layerNum<m_numLayers; ++layerNum) {
 
         if (layerNum==0)
         {
             cout << "INPUT LAYER:" << endl;
-            Matrix thisLayer = this->layers.at(layerNum).getInputs();
+            Matrix thisLayer = m_layers.at(layerNum).getInputs();
             thisLayer.printToConsole();
         } else {
             cout << "LAYER " << layerNum << ":" << endl;
-            Matrix thisLayer = this->layers.at(layerNum).getActivations();
+            Matrix thisLayer = m_layers.at(layerNum).getActivations();
             thisLayer.printToConsole();
         }
     }

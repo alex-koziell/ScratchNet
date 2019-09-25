@@ -3,7 +3,7 @@
 #include "../include/neuron.hpp"
 #include "../include/matrix.hpp"
 #include "../include/network.hpp"
-#include "../include/utils/matrixalgebra.hpp"
+#include "../include/utils/linearalgebra.hpp"
 
 using namespace std;
 
@@ -17,6 +17,8 @@ int main() {
     - null pointer function argument checks
     - prefer pass by reference & for classes whenever possible
     - bias neurons
+    - Rule: Do not copy initialize your classes
+    - Recommendation: Do not add this-> to all uses of your class members. Only do so when you have a specific reason to. use m_ instead.
     */
 
     cout << "//--------------------------------//" << endl;
@@ -28,7 +30,7 @@ int main() {
     /* input: the input values of the neurons in the input layer. */
     vector<double> input {1, 1, 1};
 
-    Network *neuralNetwork = new Network(layerSizes);
+    Network neuralNetwork = Network(layerSizes);
 
     cout << "NUMBER OF LAYERS: " << layerSizes.size() << endl << endl;
     cout << "NUMBER OF INPUT NEURONS (LAYER 0): " << layerSizes.at(0) << endl;
@@ -39,14 +41,14 @@ int main() {
     cout << "NUMBER OF OUTPUT NEURONS:          " << layerSizes.back() << endl << endl;
 
     /* Set the input values of the network, then print to console. */
-    neuralNetwork->setInput(input);
-    neuralNetwork->printToConsole();
+    neuralNetwork.setInput(input);
+    neuralNetwork.printToConsole();
 
     /* Matrix Multiplication Test */
     Matrix A = Matrix(1, 2, true);
     Matrix B = Matrix(2, 4, true);
 
-    Matrix C = utils::multiplyMatrices(A, B);
+    Matrix C = linalg::multiplyMatrices(A, B);
 
     cout << endl;
     cout << "Matrix A:" << endl;

@@ -1,8 +1,8 @@
-#include "../include/utils/matrixalgebra.hpp"
+#include "../include/utils/linearalgebra.hpp"
 
 using namespace std;
 
-Matrix utils::multiplyMatrices(Matrix &A, Matrix &B) {
+Matrix linalg::multiplyMatrices(Matrix &A, Matrix &B) {
     /*
     Multiplies two matrices in the order AB to return a matrix C
     AB = C

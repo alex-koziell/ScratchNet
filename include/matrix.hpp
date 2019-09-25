@@ -18,23 +18,19 @@ class Matrix {
 
         Matrix transpose(); // Returns the matrix transpose.
 
-        /*
-        These are most likely the simplest and most computationally efficient way to set and get
-        values, so the implementations of these two functions are defined in the header file.
-        */
-        void   setValue(int row, int col, double value) { this->values.at(row).at(col) = value; }
-        double getValue(int row, int col)               { return this->values.at(row).at(col);  }
+        void   setValue(int row, int col, double value) { m_values.at(row).at(col) = value; }
+        double getValue(int row, int col)               { return m_values.at(row).at(col);  }
 
-        int getNumRows() { return this->numRows; }
-        int getNumCols() { return this->numCols; }
+        int getNumRows() { return m_numRows; }
+        int getNumCols() { return m_numCols; }
 
         void printToConsole();
 
     private:
-        int numRows;
-        int numCols;
+        int m_numRows;
+        int m_numCols;
 
-        vector< vector<double> > values; // The entries of the matrix, stored as a multi-dimensional vector.
+        vector<vector<double>> m_values; // The entries of the matrix, stored as a multi-dimensional vector.
 };
 
 #endif
