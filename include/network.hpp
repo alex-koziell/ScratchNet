@@ -27,8 +27,8 @@ class Network {
     private:
         vector<int> layerSizes;             // A vector of integers containing the number of neurons in each layer.
         int numLayers;                      // A separate variable equal to the length of layerSizes, for more concise code.
-        vector<Layer *> layers;             // A vector containing the actual layer objects of the network. 
-        vector<Matrix *> weightMatrices;    // A vector of weight matrices for the connections between adjacent layers.
+        vector<Layer> layers;             // A vector containing the actual layer objects of the network. 
+        vector<Matrix> weightMatrices;    // A vector of weight matrices for the connections between adjacent layers.
         vector<double> input;               // Inputs of the network (the activations of the input neurons).
 
 };

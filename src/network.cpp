@@ -7,19 +7,21 @@ Network::Network(vector<int> layerSizes) {
     // cout << "CREATING " << numLayers << " LAYERS..." << endl;
     for (int layerNum=0; layerNum<numLayers; ++layerNum)
     { 
-        Layer *newLayer = new Layer(layerSizes.at(layerNum)); // For each element of layerSizes, create a layer object of the correct size.
-        this->layers.push_back(newLayer);                     // Then add it to this network's vector of layers.
+        this->layers.push_back(Layer(layerSizes.at(layerNum)));                     // Then add it to this network's vector of layers.
     }
     // cout << this->layers.size() << " LAYERS CREATED." << endl;
 
     for (int layerNum=0; layerNum<numLayers-1; ++layerNum)
     {
-        Matrix *newMatrix = new Matrix( // Create a new weight matrix for each pair of adjacent layers.
+        this->weightMatrices.push_back
+        (
+            Matrix
+            ( // Create a new weight matrix for each pair of adjacent layers.
             layerSizes.at(layerNum),    // Rows correspond to neurons in current layer,
             layerSizes.at(layerNum+1),  // columns to neurons in next layer.
             true                        // Initialize weights to random doubles.
+            )
         );
-        this->weightMatrices.push_back(newMatrix);
     }
 }
 
@@ -32,7 +34,7 @@ void Network::setInput(vector<double> input) {
 
     for (int neuronIndex=0; neuronIndex<input.size(); ++neuronIndex)
     {
-        this->layers.at(0)->setInputAt(neuronIndex, input.at(neuronIndex));
+        this->layers.at(0).setInputAt(neuronIndex, input.at(neuronIndex));
     }
 }
 
@@ -58,11 +60,11 @@ void Network::printToConsole() {
         if (layerNum==0)
         {
             cout << "INPUT LAYER:" << endl;
-            Matrix thisLayer = this->layers.at(layerNum)->getInputs();
+            Matrix thisLayer = this->layers.at(layerNum).getInputs();
             thisLayer.printToConsole();
         } else {
             cout << "LAYER " << layerNum << ":" << endl;
-            Matrix thisLayer = this->layers.at(layerNum)->getActivations();
+            Matrix thisLayer = this->layers.at(layerNum).getActivations();
             thisLayer.printToConsole();
         }
     }
