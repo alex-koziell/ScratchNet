@@ -37,7 +37,7 @@ Matrix Layer::getInputs() {
     'function class').
     */
 
-    Matrix inputsMatrix = Matrix(1, m_numNeurons, false);
+    Matrix inputsMatrix{1, m_numNeurons, false};
 
     for (int neuronIndex=0; neuronIndex<m_numNeurons; ++neuronIndex)
     { // uses the getInput() accessor function of the neuron class to map the neurons' input values to inputsMatrix.
@@ -52,7 +52,7 @@ Matrix Layer::getActivations() {
     Returns the activation of each neuron in the layer.
     */
 
-    Matrix activationMatrix = Matrix(1, m_numNeurons, false);
+    Matrix activationMatrix{1, m_numNeurons, false};
 
     for (int neuronIndex=0; neuronIndex<m_numNeurons; ++neuronIndex)
     {   // uses accessor function of the neuron class similarly to Layer::getInputs()
@@ -67,7 +67,7 @@ Matrix Layer::getDerivatives() {
     Returns the derivative of the activation for each neuron in the layer.
     */
 
-    Matrix derivativesMatrix = Matrix(1, m_numNeurons, false);
+    Matrix derivativesMatrix{1, m_numNeurons, false};
 
     for (int neuronIndex=0; neuronIndex<m_numNeurons; ++neuronIndex)
     {

@@ -1,5 +1,7 @@
 #include "../include/utils/linearalgebra.hpp"
 
+#include <iomanip>
+
 using namespace std;
 
 Matrix linalg::multiplyMatrices(Matrix &A, Matrix &B)
@@ -17,7 +19,7 @@ Matrix linalg::multiplyMatrices(Matrix &A, Matrix &B)
         assert(false);
     }
 
-    Matrix C = Matrix(A.getNumRows(), B.getNumCols(), false);
+    Matrix C{A.getNumRows(), B.getNumCols(), false};
 
    for (int i=0; i < A.getNumRows(); ++i)          // row i in matrix A
    {
@@ -72,7 +74,7 @@ Matrix linalg::transposeMatrix(Matrix &M)
     Returns the transpose of this instance of the matrix.
     */
 
-    Matrix transposedMatrix = Matrix(M.getNumCols(), M.getNumRows(), false);
+    Matrix transposedMatrix{M.getNumCols(), M.getNumRows(), false};
 
     for (int i=0; i<M.getNumRows(); ++i)
     {
@@ -90,10 +92,10 @@ void linalg::printToConsole(vector<double> &v) {
     Prints a vector to the console.
     */
     
-    cout << "[ ";
+    cout << setw(15) << "[ ";
     for (int i=0; i<v.size(); ++i)
     {
-        cout << v.at(i) << " ";
+        cout << setprecision(5) << v.at(i) << " ";
     }
     cout << "]" << endl;
 

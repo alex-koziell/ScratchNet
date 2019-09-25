@@ -60,11 +60,11 @@ void Network::printToConsole() {
         if (layerNum==0)
         {
             cout << "INPUT LAYER:" << endl;
-            Matrix thisLayer = m_layers.at(layerNum).getInputs();
+            Matrix thisLayer{ m_layers.at(layerNum).getInputs() };
             thisLayer.printToConsole();
         } else {
             cout << "LAYER " << layerNum << ":" << endl;
-            Matrix thisLayer = m_layers.at(layerNum).getActivations();
+            Matrix thisLayer{ m_layers.at(layerNum).getActivations() };
             thisLayer.printToConsole();
         }
     }
