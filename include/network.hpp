@@ -15,11 +15,11 @@ class Network {
     */
 
     public:
-        Network(vector<int> layerSizes);
+        Network(vector<int> &layerSizes);
 
         void printToConsole(); // Displays the structure of the network in the console
 
-        void setInput(vector<double> input); // Sets the activation values of the input neurons.
+        void setInput(vector<double> &input); // Sets the activation values of the input neurons.
         
         void feedForward();      // Implements feed forward part of learning.
         void backPropagate();    // Implements back propagtion part of learning.

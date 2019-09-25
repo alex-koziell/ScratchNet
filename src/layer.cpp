@@ -47,19 +47,19 @@ Matrix Layer::getInputs() {
     return inputsMatrix;
 }
 
-Matrix Layer::getActivations() {
+vector<double> Layer::getActivations() {
     /*
     Returns the activation of each neuron in the layer.
     */
 
-    Matrix activationMatrix{1, m_numNeurons, false};
+    vector<double> activationVector;
 
     for (int neuronIndex=0; neuronIndex<m_numNeurons; ++neuronIndex)
     {   // uses accessor function of the neuron class similarly to Layer::getInputs()
-        activationMatrix.setValue(0, neuronIndex, m_neurons.at(neuronIndex).getActivation());
+        activationVector.push_back(m_neurons.at(neuronIndex).getActivation());
     }
 
-    return activationMatrix;
+    return activationVector;
 }
 
 Matrix Layer::getDerivatives() {

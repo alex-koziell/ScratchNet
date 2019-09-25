@@ -32,10 +32,11 @@ int main() {
     
     vector<double> input {1, 1, 1};     // input: the input values of the neurons in the input layer.
     neuralNetwork.setInput(input);
-
     neuralNetwork.printToConsole();
 
     /* Feedforward */
+    neuralNetwork.feedForward();
+    neuralNetwork.printToConsole();
 
     /* Backpropagate */
 

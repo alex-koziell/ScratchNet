@@ -17,6 +17,11 @@ void Neuron::setInput(double newInput) {
     derive();
 }
 
+void Neuron::setBias(double bias)
+{
+    m_bias = bias;
+}
+
 void Neuron::activate() {
     /*
     Sets the activation value of the neuron
@@ -26,7 +31,7 @@ void Neuron::activate() {
 
     */
 
-    m_activation = m_input / (1 + abs(m_input));
+    m_activation = 1 / (1 + abs(m_input + m_bias));
 }
 
 void Neuron::derive() {

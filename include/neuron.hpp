@@ -17,6 +17,7 @@ and the ability to get the derivative of its activation.
         Neuron(double input);
 
         void setInput(double input);    // Function to set the input.
+        void setBias(double bias);      // Set the bias.
         void activate();                // Function to compute the activation.
         void derive();                  // Function to compute the derivative of the activation.
 
@@ -28,6 +29,7 @@ and the ability to get the derivative of its activation.
         double m_input;       // Input value
         double m_activation;  // Activation of the neuron.
         double m_derivative;  // Derivative of the neuron's activation.
+        double m_bias{1.0};        // neuron's bias
 };
 
 #endif
