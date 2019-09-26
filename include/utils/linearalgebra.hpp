@@ -7,11 +7,6 @@
 
 #include "../matrix.hpp"
 
-/*
-Idea: create a class that performs the desired function
-i.e. an object-oriented function approach.
-*/
-
 namespace linalg
 {
     double generateRandomNumber();

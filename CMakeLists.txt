@@ -12,5 +12,5 @@ add_executable(
     src/layer.cpp
     src/neuron.cpp
     src/network.cpp
-    src/linearalgebra.cpp
+    src/utils/linearalgebra.cpp
 )

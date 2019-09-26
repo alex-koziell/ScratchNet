@@ -24,7 +24,9 @@ class Network {
         
         void feedForward();      // Implements feed forward part of learning.
         void backPropagate();    // Implements back propagtion part of learning.
-        void update();           // Updates the weight matrices and neuron biases using current error.    
+        void update();           // Updates the weight matrices and neuron biases using current error.
+
+        void train();    
     
     private:
         const double m_LEARNINGRATE{0.3};     // Learning rate

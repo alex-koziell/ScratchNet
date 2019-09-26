@@ -1,4 +1,4 @@
-#include "../include/utils/linearalgebra.hpp"
+#include "../../include/utils/linearalgebra.hpp"
 
 #include <random>
 #include <chrono>

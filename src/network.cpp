@@ -113,7 +113,7 @@ void Network::update()
 {
     /*
     Using the most recent error, updates the weight matrices
-    between each layer.
+    and neuron biases.
     */
 
    for(int l=0; l<m_weightMatrices.size(); ++l)
@@ -140,6 +140,15 @@ void Network::update()
                            * m_errors.at(m_numLayers-2-l).at(j)};
         }
    }
+}
+
+void Network::train()
+{
+    /*
+    Trains the network on a training set, the training data must be in the form of inputs with corresponding target outputs.
+    */
+
+//    for () { feedforward, backprop, update }
 }
 
 void Network::printToConsole()
