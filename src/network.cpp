@@ -19,11 +19,16 @@ Network::Network(vector<int> &layerSizes)
         (
             Matrix
             ( // Create a new weight matrix for each pair of adjacent layers.
-            layerSizes.at(layerNum+1),    // Rows correspond to neurons in next layer,
-            layerSizes.at(layerNum),  // columns to neurons in current layer.
+            layerSizes.at(layerNum+1),  // Rows correspond to neurons in next layer,
+            layerSizes.at(layerNum),    // columns to neurons in current layer.
             true                        // Initialize weights to random doubles.
             )
         );
+
+        for (int neuronIndex=0; neuronIndex<m_layers.at(layerNum+1).getSize(); ++neuronIndex)
+        {
+            m_layers.at(layerNum+1).setBiasAt(neuronIndex, double{linalg::generateRandomNumber()});
+        }
     }
 }
 
@@ -50,11 +55,7 @@ void Network::feedForward()
     for (int layerNum=0; layerNum<(m_layers.size()-1); ++layerNum) // for the input to penultimate layer
     {
         vector<double> currentLayerOutputs = m_layers.at(layerNum).getActivations();
-        vector<double> nextLayerInputs = linalg::matrixVectorProduct
-        (// calculate the inputs to the next layer
-            m_weightMatrices.at(layerNum),
-            currentLayerOutputs
-        );
+        vector<double> nextLayerInputs { linalg::matrixVectorProduct(m_weightMatrices.at(layerNum), currentLayerOutputs) };
 
         for (int neuronNum=0; neuronNum<nextLayerInputs.size(); ++neuronNum)
         {// set the inputs of the next layer
@@ -88,10 +89,12 @@ void Network::backPropagate()
 
     // Calculate output error
     m_errors.push_back(linalg::hadamardProduct(gradCost, outputDerivatives));
+
+    cout << "ERRORS:" << endl;
     linalg::printToConsole(m_errors.at(0));
 
     // Backpropagate the error
-    for(int i=m_numLayers-2; i>=0; --i)
+    for(int i=m_numLayers-2; i>0; --i)
     {
         Matrix weights_T {linalg::transposeMatrix(m_weightMatrices.at(i))};
         vector<double> thisLayerDerivatives {m_layers.at(i).getDerivatives()};
@@ -100,18 +103,43 @@ void Network::backPropagate()
         vector<double> thisLayerError {linalg::hadamardProduct(backpropagatedError, thisLayerDerivatives)};
 
         m_errors.push_back(thisLayerError);
+
         linalg::printToConsole(m_errors.back());
+        cout << endl;
     };
 }
 
-void Network::updateWeights()
+void Network::update()
 {
     /*
     Using the most recent error, updates the weight matrices
     between each layer.
     */
 
-   
+   for(int l=0; l<m_weightMatrices.size(); ++l)
+   {
+        Matrix &currentWeightMatrix = m_weightMatrices.at(l);      // weight of connections from layer l to layer l+1
+        vector<double> &currentError = m_errors.at(m_numLayers-2-l); // layer indices in reverse order for m_errors (perhaps introduce sorting if not computationally costly?)
+
+        // neuron indexing: i in layer l and j in layer l+1
+        for(int j=0; j<m_layers.at(l+1).getSize(); ++j)
+        {
+            for(int i=0; i<m_layers.at(l).getSize(); ++i)
+            {
+                double newWeight { currentWeightMatrix.getValue(j,i)     // connection weight from neuron i to neuron j
+                                 - m_LEARNINGRATE 
+                                 * m_layers.at(l).getActivations().at(i) // activation of neuron i in layer l
+                                 * m_errors.at(m_numLayers-2-l).at(j) };     // error of neuron j in layer l+1
+                
+                currentWeightMatrix.setValue(j, i, newWeight);
+            }
+
+            // update neuron j's bias
+            double newBias { m_layers.at(l+1).getBiasAt(j) 
+                           - m_LEARNINGRATE
+                           * m_errors.at(m_numLayers-2-l).at(j)};
+        }
+   }
 }
 
 void Network::printToConsole()

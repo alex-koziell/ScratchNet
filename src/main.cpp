@@ -22,10 +22,10 @@ int main() {
 
     
     /* Linear algebra tests */
-    test_multiplyMatrices();
-    test_matrixVectorProduct();
-    test_transposeMatrix();
-    test_hadamardProduct();
+    // test_multiplyMatrices();
+    // test_matrixVectorProduct();
+    // test_transposeMatrix();
+    // test_hadamardProduct();
     
     /* Initialize network */
     vector<int> layerSizes {3, 2, 1};   // layerSizes: the number of neurons in each layer.
@@ -40,9 +40,14 @@ int main() {
     neuralNetwork.printToConsole();
 
     /* Backpropagate */
-    vector<double> targetOutput { 2 };
+    vector<double> targetOutput { 100 };
     neuralNetwork.setTarget(targetOutput);
     neuralNetwork.backPropagate();
+
+    /* Update weights */
+    neuralNetwork.update();
+    neuralNetwork.feedForward();
+    neuralNetwork.printToConsole();
 
     return 0;
 }

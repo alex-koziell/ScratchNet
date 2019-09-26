@@ -14,6 +14,8 @@ i.e. an object-oriented function approach.
 
 namespace linalg
 {
+    double generateRandomNumber();
+
     Matrix multiplyMatrices(Matrix &A, Matrix &B);
     std::vector<double> matrixVectorProduct(Matrix &A, std::vector<double> &v);
     double dotProduct(std::vector<double> &v, std::vector<double>);

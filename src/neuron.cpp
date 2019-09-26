@@ -6,6 +6,13 @@ Neuron::Neuron(double input) {
     derive();
 }
 
+Neuron::Neuron(double input, double bias) {
+    m_input = input;
+    m_bias = bias;
+    activate();
+    derive();
+}
+
 void Neuron::setInput(double newInput) {
     /*
     Sets the neuron's input to a new value, then

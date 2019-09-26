@@ -18,8 +18,10 @@ operations on the network.
         Layer(int numNeurons);
 
         void setInputAt(int neuronIndex, double input); // Set the value of the neuron at neuronIndex to the value specified by input.
+        void setBiasAt (int neuronIndex, double bias);  // Sets bias of neuron at neuronIndex
 
         vector<double> getInputs();        // NEEDS DESCRIPTION
+        double getBiasAt(int neuronIndex);
         vector<double> getActivations();   // ^
         vector<double> getDerivatives();   // ^
 

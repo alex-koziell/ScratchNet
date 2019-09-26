@@ -22,12 +22,27 @@ currently Layer has wayyy to much repeated for loops in getInputs(), getActivati
 */
 
 
-void Layer::setInputAt(int neuronIndex, double input) {
+void Layer::setInputAt(int neuronIndex, double input)
+{
     /*
     Sets the input of neuron at 'neuronIndex' in the neurons vector.
     */
 
     m_neurons.at(neuronIndex).setInput(input);
+}
+
+void Layer::setBiasAt(int neuronIndex, double bias)
+{
+    /*
+    Sets the bias of neuron at neuronIndex in the layer.
+    */
+
+   m_neurons.at(neuronIndex).setBias(bias);
+}
+
+double Layer::getBiasAt(int neuronIndex)
+{
+    return m_neurons.at(neuronIndex).getBias();
 }
 
 vector<double> Layer::getInputs() {

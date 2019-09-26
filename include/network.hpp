@@ -24,9 +24,11 @@ class Network {
         
         void feedForward();      // Implements feed forward part of learning.
         void backPropagate();    // Implements back propagtion part of learning.
-        void updateWeights();    // Updates the weight matrices.
+        void update();           // Updates the weight matrices and neuron biases using current error.    
     
     private:
+        const double m_LEARNINGRATE{0.3};     // Learning rate
+
         vector<int> m_layerSizes;             // A vector of integers containing the number of neurons in each layer.
         int m_numLayers;                      // A separate variable equal to the length of layerSizes, for more concise code.
         vector<Layer> m_layers;               // A vector containing the actual layer objects of the network. 
