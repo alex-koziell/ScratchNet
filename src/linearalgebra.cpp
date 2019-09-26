@@ -68,6 +68,32 @@ vector<double> linalg::matrixVectorProduct(Matrix &A, vector<double> &v)
     return u;
 }
 
+vector<double> linalg::hadamardProduct(vector<double> &v, vector<double> &u)
+{
+    /*
+    Computes the Hadamard Product (element-wise multiplication)
+    of two vectors v and u, to give a vector w.
+    */
+
+    // check dimensions are correct
+    if (v.size() != u.size())
+    {
+        cerr << "Vector v is of size   " << v.size() << endl
+        << "...but vector u is of size " << u.size() << "!" << endl;
+        assert(false);
+    }
+
+
+   vector<double> w;
+
+    for (int i=0; i<v.size(); ++i)
+    {
+        w.push_back( v.at(i) * u.at(i) ); // Hadamard Product
+    }
+
+    return w;
+}
+
 Matrix linalg::transposeMatrix(Matrix &M)
 {
     /*
@@ -95,7 +121,11 @@ void linalg::printToConsole(vector<double> &v) {
     cout << setw(15) << "[ ";
     for (int i=0; i<v.size(); ++i)
     {
-        cout << setprecision(5) << v.at(i) << " ";
+        cout << setprecision(3) << v.at(i);
+        if (i==v.size()-1)
+            cout << " ";
+        else
+            cout << ", " << setw(5);
     }
     cout << "]" << endl;
 

@@ -1,7 +1,8 @@
 #include "../include/network.hpp"
 #include "../include/utils/linearalgebra.hpp"
 
-Network::Network(vector<int> &layerSizes) {
+Network::Network(vector<int> &layerSizes)
+{
     m_layerSizes = layerSizes;
     m_numLayers = layerSizes.size();
 
@@ -26,7 +27,8 @@ Network::Network(vector<int> &layerSizes) {
     }
 }
 
-void Network::setInput(vector<double> &input) {
+void Network::setInput(vector<double> &input)
+{
     /*
     Sets the inputs of the neurons in the 0th (input) layer.
     */
@@ -39,7 +41,8 @@ void Network::setInput(vector<double> &input) {
     }
 }
 
-void Network::feedForward() {
+void Network::feedForward()
+{
     /*
     Implements the feedforward algorithm.
     */
@@ -61,23 +64,55 @@ void Network::feedForward() {
     }
 }
 
-void Network::printToConsole() {
+void Network::backPropagate()
+{
+    /*
+    Implements backpropagation using quadratic cost function,
+    with derivative (activation - target value).
+    */
+
+    // compute the output error: equal to grad the vector of quadratic costs for
+    // each neuron, Hadamard product the vector of derivatives of the output neurons.
+    vector<double> gradCost;
+    vector<double> output = m_layers.back().getActivations();
+    vector<double> outputDerivatives = m_layers.back().getDerivatives();
+    
+    for(int i=0; i<m_layers.back().getSize(); ++i)
+    {
+        gradCost.push_back(output.at(i) - m_targetOutput.at(i));
+    }
+
+    vector<double> outputError = linalg::hadamardProduct(gradCost, outputDerivatives);
+    linalg::printToConsole(outputError);
+    
+}
+
+void Network::printToConsole()
+{
     /*
     Prints the input values of the neurons in the input layer,
     then the activations of the neurons in subsequent layers.
     */
 
-    for (int layerNum=0; layerNum<m_numLayers; ++layerNum) {
+    for (int layerIndex=0; layerIndex<m_numLayers; ++layerIndex) {
 
-        if (layerNum==0)
+        if (layerIndex==0)
         {
             cout << "INPUT LAYER:" << endl;
-            Matrix thisLayer{ m_layers.at(layerNum).getInputs() };
-            thisLayer.printToConsole();
-        } else {
-            cout << "LAYER " << layerNum << ":" << endl;
-            vector<double> thisLayer{ m_layers.at(layerNum).getActivations() };
-            linalg::printToConsole(thisLayer);
+            vector<double> layerVector{ m_layers.at(layerIndex).getInputs() };
+            linalg::printToConsole(layerVector);
+        } 
+        else if (layerIndex==m_numLayers-1)
+        {
+            cout << "OUTPUT LAYER:" << endl;
+            vector<double> layerVector{ m_layers.at(layerIndex).getActivations() };
+            linalg::printToConsole(layerVector);   
+        }
+        else
+        {
+            cout << "LAYER " << layerIndex << ":" << endl;
+            vector<double> layerVector{ m_layers.at(layerIndex).getActivations() };
+            linalg::printToConsole(layerVector);
         }
     }
     cout << endl;

@@ -27,11 +27,11 @@ void Neuron::activate() {
     Sets the activation value of the neuron
     currently using the fast sigmoid function:
 
-    f(x) = 1 / (1 + |x|)
+    f(x) = x / (1 + |x|)
 
     */
 
-    m_activation = 1 / (1 + abs(m_input + m_bias));
+    m_activation = (m_input + m_bias) / (1 + abs(m_input + m_bias));
 }
 
 void Neuron::derive() {

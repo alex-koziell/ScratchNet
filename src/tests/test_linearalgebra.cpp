@@ -25,7 +25,8 @@ void test_multiplyMatrices()
 
 }
 
-void test_matrixVectorProduct() {
+void test_matrixVectorProduct()
+{
     /*
     Matrix-vector multiplication test.
     */
@@ -43,7 +44,23 @@ void test_matrixVectorProduct() {
 
 }
 
-void test_transposeMatrix() {
+void test_hadamardProduct()
+{
+    vector<double> v {1, 2, 3};
+    vector<double> u {4, 5, 6};
+
+    vector<double> w = linalg::hadamardProduct(v, u);
+    
+    cout<<"Vector v:"<<endl;
+    linalg::printToConsole(v);
+    cout<<"Hadamard Product with vector u:"<<endl;
+    linalg::printToConsole(u);
+    cout<<"equals vector w:"<<endl;
+    linalg::printToConsole(w);
+}
+
+void test_transposeMatrix()
+{
     /*
     Matrix Transpose Test 
     */

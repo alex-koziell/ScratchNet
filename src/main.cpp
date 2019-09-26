@@ -25,12 +25,13 @@ int main() {
     test_multiplyMatrices();
     test_matrixVectorProduct();
     test_transposeMatrix();
+    test_hadamardProduct();
     
     /* Initialize network */
     vector<int> layerSizes {3, 2, 1};   // layerSizes: the number of neurons in each layer.
     Network neuralNetwork = Network(layerSizes);    
     
-    vector<double> input {1, 1, 1};     // input: the input values of the neurons in the input layer.
+    vector<double> input {1, 0, 1};     // input: the input values of the neurons in the input layer.
     neuralNetwork.setInput(input);
     neuralNetwork.printToConsole();
 
@@ -39,6 +40,9 @@ int main() {
     neuralNetwork.printToConsole();
 
     /* Backpropagate */
+    vector<double> targetOutput { 2 };
+    neuralNetwork.setTarget(targetOutput);
+    neuralNetwork.backPropagate();
 
     return 0;
 }

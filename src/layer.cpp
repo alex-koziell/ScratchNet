@@ -30,21 +30,21 @@ void Layer::setInputAt(int neuronIndex, double input) {
     m_neurons.at(neuronIndex).setInput(input);
 }
 
-Matrix Layer::getInputs() {
+vector<double> Layer::getInputs() {
     /*
     Returns the inputs of the neurons in the layer as a matrix object
     (rather than a vector: this allows us to use the matrix multiplication
     'function class').
     */
 
-    Matrix inputsMatrix{1, m_numNeurons, false};
+    vector<double> inputsVector;
 
     for (int neuronIndex=0; neuronIndex<m_numNeurons; ++neuronIndex)
-    { // uses the getInput() accessor function of the neuron class to map the neurons' input values to inputsMatrix.
-        inputsMatrix.setValue(0, neuronIndex, m_neurons.at(neuronIndex).getInput());
+    { // uses the getInput() accessor function of the neuron class to map the neurons' input values to inputsVector.
+        inputsVector.push_back(m_neurons.at(neuronIndex).getInput());
     }
 
-    return inputsMatrix;
+    return inputsVector;
 }
 
 vector<double> Layer::getActivations() {
@@ -62,17 +62,17 @@ vector<double> Layer::getActivations() {
     return activationVector;
 }
 
-Matrix Layer::getDerivatives() {
+vector<double> Layer::getDerivatives() {
     /*
     Returns the derivative of the activation for each neuron in the layer.
     */
 
-    Matrix derivativesMatrix{1, m_numNeurons, false};
+    vector<double> derivativesVector;
 
     for (int neuronIndex=0; neuronIndex<m_numNeurons; ++neuronIndex)
     {
-        derivativesMatrix.setValue(0, neuronIndex, m_neurons.at(neuronIndex).getDerivative());
+        derivativesVector.push_back(m_neurons.at(neuronIndex).getActivation());
     }
 
-    return derivativesMatrix;  
+    return derivativesVector;  
 }

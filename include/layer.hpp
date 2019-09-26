@@ -19,9 +19,9 @@ operations on the network.
 
         void setInputAt(int neuronIndex, double input); // Set the value of the neuron at neuronIndex to the value specified by input.
 
-        Matrix getInputs();        // NEEDS DESCRIPTION
+        vector<double> getInputs();        // NEEDS DESCRIPTION
         vector<double> getActivations();   // ^
-        Matrix getDerivatives();   // ^
+        vector<double> getDerivatives();   // ^
 
         int getSize() { return m_numNeurons; }
 

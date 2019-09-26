@@ -19,7 +19,8 @@ class Network {
 
         void printToConsole(); // Displays the structure of the network in the console
 
-        void setInput(vector<double> &input); // Sets the activation values of the input neurons.
+        void setInput(vector<double> &input);   // Sets the input values of the input neurons.
+        void setTarget(vector<double> &target) { m_targetOutput = target; }  // Sets the target output for the current element of the training set.
         
         void feedForward();      // Implements feed forward part of learning.
         void backPropagate();    // Implements back propagtion part of learning.
@@ -29,7 +30,9 @@ class Network {
         int m_numLayers;                      // A separate variable equal to the length of layerSizes, for more concise code.
         vector<Layer> m_layers;               // A vector containing the actual layer objects of the network. 
         vector<Matrix> m_weightMatrices;      // A vector of weight matrices for the connections between adjacent layers.
-        vector<double> m_input;               // Inputs of the network (the activations of the input neurons).
+        
+        vector<double> m_input;               // Inputs of the input neurons.
+        vector<double> m_targetOutput;        // Target activations.
 
 };
 

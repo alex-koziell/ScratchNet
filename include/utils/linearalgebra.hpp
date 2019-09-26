@@ -17,6 +17,7 @@ namespace linalg
     Matrix multiplyMatrices(Matrix &A, Matrix &B);
     std::vector<double> matrixVectorProduct(Matrix &A, std::vector<double> &v);
     double dotProduct(std::vector<double> &v, std::vector<double>);
+    std::vector<double> hadamardProduct(std::vector<double> &v, std::vector<double> &u);
 
     Matrix transposeMatrix(Matrix &M); // Returns the matrix transpose.
 
