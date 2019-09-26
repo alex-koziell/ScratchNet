@@ -23,12 +23,12 @@ and the ability to get the derivative of its activation.
 
         double getInput()      { return m_input; }      // Accessor for input value.
         double getActivation() { return m_activation; } // Accessor for activation value.
-        double getDerivative() { return m_derivative; } // Accessor for the derrivative of the activation.
+        double getDerivative() { return m_derivative; } // Accessor for the derrivative of the inputs.
 
     private:
         double m_input;       // Input value
         double m_activation;  // Activation of the neuron.
-        double m_derivative;  // Derivative of the neuron's activation.
+        double m_derivative;  // Derivative of the neuron's input.
         double m_bias{1.0};        // neuron's bias
 };
 

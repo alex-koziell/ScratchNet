@@ -37,11 +37,11 @@ void Neuron::activate() {
 void Neuron::derive() {
     /*
     Sets the derivative according to the
-    current the activation function.
+    current activation function.
 
     f'(x) = f(x) * (1 - f(x))
 
     */
 
-    m_derivative = m_activation * (1 - m_activation);
+    m_derivative = m_input * (1 - m_input);
 }

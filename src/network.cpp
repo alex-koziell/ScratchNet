@@ -71,20 +71,47 @@ void Network::backPropagate()
     with derivative (activation - target value).
     */
 
-    // compute the output error: equal to grad the vector of quadratic costs for
-    // each neuron, Hadamard product the vector of derivatives of the output neurons.
+    // Compute the output error: equal to ( grad the vector of quadratic costs for
+    // each neuron, Hadamard product the vector of derivatives of the output neurons ).
     vector<double> gradCost;
-    vector<double> output = m_layers.back().getActivations();
-    vector<double> outputDerivatives = m_layers.back().getDerivatives();
+    vector<double> output {m_layers.back().getActivations()};
+    vector<double> outputDerivatives {m_layers.back().getDerivatives()};
     
     for(int i=0; i<m_layers.back().getSize(); ++i)
     {
         gradCost.push_back(output.at(i) - m_targetOutput.at(i));
     }
 
-    vector<double> outputError = linalg::hadamardProduct(gradCost, outputDerivatives);
-    linalg::printToConsole(outputError);
-    
+    // array containing the error vectors for each layer
+    // the index goes in reverse order, from the output layer to the input layer
+    // (this makes it easier to use of back() and push_back())
+
+    // Calculate output error
+    m_errors.push_back(linalg::hadamardProduct(gradCost, outputDerivatives));
+    linalg::printToConsole(m_errors.at(0));
+
+    // Backpropagate the error
+    for(int i=m_numLayers-2; i>=0; --i)
+    {
+        Matrix weights_T {linalg::transposeMatrix(m_weightMatrices.at(i))};
+        vector<double> thisLayerDerivatives {m_layers.at(i).getDerivatives()};
+
+        vector<double> backpropagatedError {linalg::matrixVectorProduct(weights_T, m_errors.back())};
+        vector<double> thisLayerError {linalg::hadamardProduct(backpropagatedError, thisLayerDerivatives)};
+
+        m_errors.push_back(thisLayerError);
+        linalg::printToConsole(m_errors.back());
+    };
+}
+
+void Network::updateWeights()
+{
+    /*
+    Using the most recent error, updates the weight matrices
+    between each layer.
+    */
+
+   
 }
 
 void Network::printToConsole()
