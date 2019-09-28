@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -12,13 +13,15 @@ class Preprocessor
 {
     public:
         Preprocessor(string filePath);
-        void readData();
-        vector<vector<vector<double>>> createData();
+        vector<vector<vector<double>>> getTrainingData() { return m_data; };
+        int getInputSize()  { return m_inputSize;  }
+        int getOutputSize() { return m_outputSize; }
 
     private:
-        const string m_FILEPATH;
-        vector<vector<double>> m_inputData;
-        vector<vector<double>> m_targetData;
+        vector<vector<vector<double>>> m_data;
+        int m_inputSize;
+        int m_outputSize;
+        vector<double> createLayerVector(string values);
 };
 
 #endif

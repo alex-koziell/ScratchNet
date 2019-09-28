@@ -22,11 +22,7 @@ class Network {
         void setInput(vector<double> &input);   // Sets the input values of the input neurons.
         void setTarget(vector<double> &target) { m_targetOutput = target; }  // Sets the target output for the current element of the training set.
         
-        void feedForward();      // Implements feed forward part of learning.
-        void backPropagate();    // Implements back propagtion part of learning.
-        void update();           // Updates the weight matrices and neuron biases using current error.
-
-        void train();    
+        void train(vector<vector<vector<double>>> trainingData);  // Trains the network on appropiately-typed data vector.   
     
     private:
         const double m_LEARNINGRATE{0.3};     // Learning rate
@@ -39,6 +35,10 @@ class Network {
         
         vector<double> m_input;               // Inputs of the input neurons.
         vector<double> m_targetOutput;        // Target activations.
+
+        void feedForward();                   // Implements feed forward part of learning.
+        void backPropagate();                 // Implements back propagtion part of learning.
+        void update();                        // Updates the weight matrices and neuron biases using current error.
 
 };
 

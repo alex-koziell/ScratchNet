@@ -13,4 +13,5 @@ add_executable(
     src/neuron.cpp
     src/network.cpp
     src/utils/linearalgebra.cpp
+    src/utils/preprocessor.cpp
 )

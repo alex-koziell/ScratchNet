@@ -9,7 +9,7 @@ Network::Network(vector<int> &layerSizes)
     // cout << "CREATING " << numLayers << " LAYERS..." << endl;
     for (int layerNum=0; layerNum<m_numLayers; ++layerNum)
     { 
-        m_layers.push_back(Layer(layerSizes.at(layerNum)));                     // Then add it to this network's vector of layers.
+        m_layers.push_back(Layer(layerSizes.at(layerNum))); // Then add it to this network's vector of layers.
     }
     // cout << m_layers.size() << " LAYERS CREATED." << endl;
 
@@ -90,7 +90,7 @@ void Network::backPropagate()
     // Calculate output error
     m_errors.push_back(linalg::hadamardProduct(gradCost, outputDerivatives));
 
-    cout << "ERRORS:" << endl;
+    cout << "ERRORS:";
     linalg::printToConsole(m_errors.at(0));
 
     // Backpropagate the error
@@ -142,13 +142,37 @@ void Network::update()
    }
 }
 
-void Network::train()
+void Network::train(vector<vector<vector<double>>> trainingData)
 {
     /*
-    Trains the network on a training set, the training data must be in the form of inputs with corresponding target outputs.
+    Trains the network on a training set, given data in the appropriate format.
     */
 
-//    for () { feedforward, backprop, update }
+    int trainingPass = 0;
+
+    for (vector<vector<double>> trainingSample : trainingData) // for each training sample
+    {
+        /* Set inputs */
+        vector<double> input {trainingSample.at(0)};
+        setInput(input);
+
+        /* Current target */
+        vector<double> targetOutput {trainingSample.at(1)};
+        setTarget(targetOutput);
+
+        /* Feedforward */
+        cout << "(PASS : " << trainingPass << ")" << endl;
+        feedForward();
+        printToConsole();
+
+        /* Backpropagate */
+        backPropagate();
+
+        /* Update weights */
+        update();
+
+        ++trainingPass;
+    }
 }
 
 void Network::printToConsole()
@@ -162,19 +186,19 @@ void Network::printToConsole()
 
         if (layerIndex==0)
         {
-            cout << "INPUT LAYER:" << endl;
+            cout << "INPUT LAYER:";
             vector<double> layerVector{ m_layers.at(layerIndex).getInputs() };
             linalg::printToConsole(layerVector);
         } 
         else if (layerIndex==m_numLayers-1)
         {
-            cout << "OUTPUT LAYER:" << endl;
+            cout << "OUTPUT LAYER:";
             vector<double> layerVector{ m_layers.at(layerIndex).getActivations() };
             linalg::printToConsole(layerVector);   
         }
         else
         {
-            cout << "LAYER " << layerIndex << ":" << endl;
+            cout << "LAYER " << layerIndex << ":";
             vector<double> layerVector{ m_layers.at(layerIndex).getActivations() };
             linalg::printToConsole(layerVector);
         }

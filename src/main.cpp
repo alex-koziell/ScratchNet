@@ -3,6 +3,8 @@
 #include "../include/network.hpp"
 #include "./tests/test_linearalgebra.cpp"
 #include "../include/utils/linearalgebra.hpp"
+#include "../include/utils/preprocessor.hpp"
+#include "./tests/test_preprocessor.cpp"
 
 #include <iostream>
 #include <iomanip>
@@ -11,43 +13,38 @@ using namespace std;
 
 int main() {
     /*
-    TODO:
+    TODO/RULES:
     - consts where possible and const qualified functions
     - function templates/functionals
-    - can we put foreach loops anywhere?
-    - prefer pass by reference & for classes whenever possible
+    - prefer pass classes by reference whenever possible
     - bias neurons
     - Rule: Do not copy initialize your classes
     */
 
-    
+    /* Get training data */
+    Preprocessor trainingClass = Preprocessor("./data/XOR_train.txt"); 
+    const int inputLayerSize  = trainingClass.getInputSize();
+    const int outputLayerSize = trainingClass.getOutputSize();
+    vector<vector<vector<double>>> trainingData = trainingClass.getTrainingData();
+
+    /* Initialize network, then train */
+    vector<int> layerSizes {inputLayerSize, 4, outputLayerSize};
+    Network neuralNetwork {Network(layerSizes)};
+    neuralNetwork.train(trainingData);
+
+
+    /* ---------------TESTS/DEBUG---------------*/
+
     /* Linear algebra tests */
     // test_multiplyMatrices();
     // test_matrixVectorProduct();
     // test_transposeMatrix();
     // test_hadamardProduct();
-    
-    /* Initialize network */
-    vector<int> layerSizes {3, 2, 1};   // layerSizes: the number of neurons in each layer.
-    Network neuralNetwork = Network(layerSizes);    
-    
-    vector<double> input {1, 0, 1};     // input: the input values of the neurons in the input layer.
-    neuralNetwork.setInput(input);
-    neuralNetwork.printToConsole();
 
-    /* Feedforward */
-    neuralNetwork.feedForward();
-    neuralNetwork.printToConsole();
+    /* Preprocessor test */
+    // test_preprocessor();
 
-    /* Backpropagate */
-    vector<double> targetOutput { 100 };
-    neuralNetwork.setTarget(targetOutput);
-    neuralNetwork.backPropagate();
-
-    /* Update weights */
-    neuralNetwork.update();
-    neuralNetwork.feedForward();
-    neuralNetwork.printToConsole();
+    /*------------------------------------------*/
 
     return 0;
 }

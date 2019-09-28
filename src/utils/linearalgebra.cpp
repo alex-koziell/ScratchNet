@@ -129,7 +129,7 @@ void linalg::printToConsole(vector<double> &v) {
     Prints a vector to the console.
     */
     
-    cout << setw(15) << "[ ";
+    cout << setw(13-v.size()) << "[ ";
     for (int i=0; i<v.size(); ++i)
     {
         cout << setprecision(3) << v.at(i);
