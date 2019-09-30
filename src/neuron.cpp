@@ -50,5 +50,5 @@ void Neuron::derive() {
 
     */
 
-    m_derivative = m_input * (1 - m_input);
+    m_derivative = m_activation * (1 - m_activation);
 }
