@@ -25,10 +25,10 @@ Network::Network(vector<int> &layerSizes)
             )
         );
 
-        // for (int neuronIndex=0; neuronIndex<m_layers.at(layerNum+1).getSize(); ++neuronIndex)
-        // {
-        //     m_layers.at(layerNum+1).setBiasAt(neuronIndex, double{linalg::generateRandomNumber()-1});
-        // }
+        for (int neuronIndex=0; neuronIndex<m_layers.at(layerNum+1).getSize(); ++neuronIndex)
+        {
+            m_layers.at(layerNum+1).setBiasAt(neuronIndex, double{linalg::generateRandomNumber()});
+        }
     }
 }
 
@@ -58,8 +58,9 @@ void Network::feedForward()
         vector<double> nextLayerInputs { linalg::matrixVectorProduct(m_weightMatrices.at(layerNum), currentLayerOutputs) };
 
         for (int neuronNum=0; neuronNum<nextLayerInputs.size(); ++neuronNum)
-        {// set the inputs of the next layer
-            m_layers.at(layerNum+1).setInputAt(neuronNum, nextLayerInputs.at(neuronNum));
+        {// set the inputs of the next layer, with bias
+            m_layers.at(layerNum+1).setInputAt(neuronNum, nextLayerInputs.at(neuronNum)
+                                            + m_layers.at(layerNum+1).getBiasAt(neuronNum));
         }
 
     }
@@ -72,8 +73,6 @@ void Network::backPropagate()
     with derivative (activation - target value).
     */
 
-    m_errors.clear();  // Clear the error from any previous training loop
-
     // Compute the output error: equal to ( grad the vector of quadratic costs for
     // each neuron, Hadamard product the vector of derivatives of the output neurons ).
     vector<double> gradCost;
@@ -83,6 +82,7 @@ void Network::backPropagate()
     for(int i=0; i<m_layers.back().getSize(); ++i)
     {
         gradCost.push_back(output.at(i) - m_targetOutput.at(i));
+        cout << gradCost.back();
     }
 
     // Calculate output error
@@ -138,6 +138,7 @@ void Network::update()
             double newBias { m_layers.at(l+1).getBiasAt(j) 
                            - m_LEARNINGRATE
                            * m_errors.at(m_errors.size()-1-l).at(j)};
+            m_layers.at(l+1).setBiasAt(j, newBias);
         }
    }
 }
@@ -170,6 +171,7 @@ void Network::train(vector<vector<vector<double>>> trainingData)
         }
 
         /* Backpropagate */
+        m_errors.clear();  // Clear the error from any previous training loop
         backPropagate();
 
         /* Update weights */
