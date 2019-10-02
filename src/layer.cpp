@@ -86,7 +86,7 @@ vector<double> Layer::getDerivatives() {
 
     for (int neuronIndex=0; neuronIndex<m_numNeurons; ++neuronIndex)
     {
-        derivativesVector.push_back(m_neurons.at(neuronIndex).getActivation());
+        derivativesVector.push_back(m_neurons.at(neuronIndex).getDerivative());
     }
 
     return derivativesVector;  
