@@ -1,4 +1,5 @@
 #include "../include/neuron.hpp"
+#include <cmath>
 
 Neuron::Neuron(double input) {
     m_input = input;
@@ -32,13 +33,15 @@ void Neuron::setBias(double bias)
 void Neuron::activate() {
     /*
     Sets the activation value of the neuron
-    currently using the fast sigmoid function:
 
-    f(x) = x / (1 + |x|)
+    Originally the fast sigmoid function, f(x) = x / (1 + |x|),
+    which failed to converge on XOR training data.
+    
+    Now using tanh(x), which works on XOR!
 
     */
 
-    m_activation = 0.5 * ( 1 + (m_input + m_bias) / (1 + abs(m_input + m_bias)) );
+    m_activation = tanh(m_input + m_bias);
 }
 
 void Neuron::derive() {
@@ -46,9 +49,10 @@ void Neuron::derive() {
     Sets the derivative according to the
     current activation function.
 
-    f'(x) = f(x) * (1 - f(x))
+    Fast sigmoid: f'(x) = f(x) * (1 - f(x))
+    d/dx(tanh(x)) = 1 - tanh^2(x)
 
     */
 
-    m_derivative = 0.5 * m_activation * (1 - m_activation);
+    m_derivative = 1 - m_activation * m_activation;
 }
