@@ -26,7 +26,7 @@ Network::Network(vector<int> &layerSizes)
         );
 
         for (int neuronIndex=0; neuronIndex<m_layers.at(layerNum+1).getSize(); ++neuronIndex)
-        {
+        { // randomly initialize neuron biases in the hidden and output layers
             m_layers.at(layerNum+1).setBiasAt(neuronIndex, double{linalg::generateRandomNumber()});
         }
     }
@@ -59,8 +59,7 @@ void Network::feedForward()
 
         for (int neuronNum=0; neuronNum<nextLayerInputs.size(); ++neuronNum)
         {// set the inputs of the next layer, with bias
-            m_layers.at(layerNum+1).setInputAt(neuronNum, nextLayerInputs.at(neuronNum)
-                                            + m_layers.at(layerNum+1).getBiasAt(neuronNum));
+            m_layers.at(layerNum+1).setInputAt(neuronNum, nextLayerInputs.at(neuronNum));
         }
 
     }
@@ -82,7 +81,6 @@ void Network::backPropagate()
     for(int i=0; i<m_layers.back().getSize(); ++i)
     {
         gradCost.push_back(output.at(i) - m_targetOutput.at(i));
-        cout << gradCost.back();
     }
 
     // Calculate output error

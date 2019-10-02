@@ -38,7 +38,7 @@ void Neuron::activate() {
 
     */
 
-    m_activation = (m_input + m_bias) / (1 + abs(m_input + m_bias));
+    m_activation = 0.5 * ( 1 + (m_input + m_bias) / (1 + abs(m_input + m_bias)) );
 }
 
 void Neuron::derive() {
@@ -50,5 +50,5 @@ void Neuron::derive() {
 
     */
 
-    m_derivative = m_activation * (1 - m_activation);
+    m_derivative = 0.5 * m_activation * (1 - m_activation);
 }
