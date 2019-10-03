@@ -1,11 +1,8 @@
 #ifndef _PREPROCESSOR_HPP_
 #define _PREPROCESSOR_HPP_
 
-#include <fstream>
-#include <iostream>
-#include <vector>
 #include <string>
-#include <sstream>
+#include <vector>
 
 using namespace std;
 

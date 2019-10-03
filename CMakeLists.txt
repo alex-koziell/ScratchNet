@@ -7,11 +7,13 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 add_executable(
     scratchnet
+    
     src/main.cpp
-    src/matrix.cpp
-    src/layer.cpp
     src/neuron.cpp
+    src/layer.cpp
     src/network.cpp
-    src/utils/linearalgebra.cpp
-    src/utils/preprocessor.cpp
+
+    src/math/numerical.cpp
+    
+    src/preprocessing/preprocessor.cpp
 )

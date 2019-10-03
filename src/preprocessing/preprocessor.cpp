@@ -1,4 +1,10 @@
-#include "../../include/utils/preprocessor.hpp"
+#include "../../include/preprocessing/preprocessor.hpp"
+
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
 
 Preprocessor::Preprocessor(string filePath)
 {

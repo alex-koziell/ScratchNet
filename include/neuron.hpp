@@ -1,8 +1,6 @@
 #ifndef _NEURON_HPP_
 #define _NEURON_HPP_
 
-#include <iostream>
-#include <math.h>
 using namespace std;
 
 class Neuron 

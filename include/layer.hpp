@@ -1,9 +1,8 @@
 #ifndef _LAYER_HPP_
 #define _LAYER_HPP_
 
-#include <vector>
 #include "neuron.hpp"
-#include "matrix.hpp"
+#include <vector>
 
 using namespace std;
 

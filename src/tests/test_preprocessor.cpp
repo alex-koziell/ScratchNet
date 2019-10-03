@@ -1,4 +1,7 @@
-#include "../../include/utils/preprocessor.hpp"
+#include "../../include/preprocessing/preprocessor.hpp"
+
+#include <iostream>
+#include <vector>
 
 void test_preprocessor()
 {

@@ -1,5 +1,6 @@
 #include "../include/network.hpp"
-#include "../include/utils/linearalgebra.hpp"
+#include "../include/math/linearalgebra.h"
+#include "../include/math/numerical.h"
 
 Network::Network(vector<int> &layerSizes)
 {
@@ -17,7 +18,7 @@ Network::Network(vector<int> &layerSizes)
     {
         m_weightMatrices.push_back
         (
-            Matrix
+            linalg::Matrix<double>
             ( // Create a new weight matrix for each pair of adjacent layers.
             layerSizes.at(layerNum+1),  // Rows correspond to neurons in next layer,
             layerSizes.at(layerNum),    // columns to neurons in current layer.
@@ -27,7 +28,7 @@ Network::Network(vector<int> &layerSizes)
 
         for (int neuronIndex=0; neuronIndex<m_layers.at(layerNum+1).getSize(); ++neuronIndex)
         { // randomly initialize neuron biases in the hidden and output layers
-            m_layers.at(layerNum+1).setBiasAt(neuronIndex, double{linalg::generateRandomNumber()});
+            m_layers.at(layerNum+1).setBiasAt(neuronIndex, double{numerical::randomDouble()});
         }
     }
 }
@@ -55,7 +56,7 @@ void Network::feedForward()
     for (int layerNum=0; layerNum<(m_layers.size()-1); ++layerNum) // for the input to penultimate layer
     {
         vector<double> currentLayerOutputs = m_layers.at(layerNum).getActivations();
-        vector<double> nextLayerInputs { linalg::matrixVectorProduct(m_weightMatrices.at(layerNum), currentLayerOutputs) };
+        vector<double> nextLayerInputs { m_weightMatrices.at(layerNum) * currentLayerOutputs };
 
         for (int neuronNum=0; neuronNum<nextLayerInputs.size(); ++neuronNum)
         {// set the inputs of the next layer, with bias
@@ -89,20 +90,20 @@ void Network::backPropagate()
     m_errors.push_back(linalg::hadamardProduct(gradCost, outputDerivatives));
 
     cout << "ERRORS:";
-    linalg::printToConsole(m_errors.at(0));
+    linalg::print(m_errors.at(0));
 
     // Backpropagate the error
     for(int i=m_numLayers-2; i>0; --i) // m_numLayers should be equal to m_weightMatrices.size()-1
     {
-        Matrix weights_T {linalg::transposeMatrix(m_weightMatrices.at(i))};
-        vector<double> thisLayerDerivatives {m_layers.at(i).getDerivatives()};
+        linalg::Matrix<double> weights_T { m_weightMatrices.at(i).transpose() };
+        vector<double> thisLayerDerivatives { m_layers.at(i).getDerivatives() };
 
-        vector<double> backpropagatedError {linalg::matrixVectorProduct(weights_T, m_errors.back())};
+        vector<double> backpropagatedError { weights_T * m_errors.back() };
         vector<double> thisLayerError {linalg::hadamardProduct(backpropagatedError, thisLayerDerivatives)};
 
         m_errors.push_back(thisLayerError);
 
-        linalg::printToConsole(m_errors.back());
+        linalg::print(m_errors.back());
         cout << endl;
     };
 }
@@ -116,7 +117,7 @@ void Network::update()
 
    for(int l=0; l<m_weightMatrices.size(); ++l)
    {
-        Matrix &currentWeightMatrix = m_weightMatrices.at(l);      // weight of connections from layer l to layer l+1
+        linalg::Matrix<double> &currentWeightMatrix = m_weightMatrices.at(l);      // weight of connections from layer l to layer l+1
         vector<double> &currentError = m_errors.at(m_errors.size()-1-l); // layer indices in reverse order for m_errors (perhaps introduce sorting if not computationally costly?)
 
         // neuron indexing: i in layer l and j in layer l+1
@@ -124,12 +125,12 @@ void Network::update()
         {
             for(int i=0; i<m_layers.at(l).getSize(); ++i)
             {
-                double newWeight { currentWeightMatrix.getValue(j,i)     // connection weight from neuron i to neuron j
+                double newWeight { currentWeightMatrix(j,i)     // connection weight from neuron i to neuron j
                                  - m_LEARNINGRATE 
                                  * m_layers.at(l).getActivations().at(i) // activation of neuron i in layer l
                                  * m_errors.at(m_errors.size()-1-l).at(j) };     // error of neuron j in layer l+1
                 
-                currentWeightMatrix.setValue(j, i, newWeight);
+                currentWeightMatrix(j, i) = newWeight;
             }
 
             // update neuron j's bias
@@ -192,19 +193,19 @@ void Network::printToConsole() const
         {
             cout << "INPUT LAYER:";
             vector<double> layerVector{ m_layers.at(layerIndex).getInputs() };
-            linalg::printToConsole(layerVector);
+            linalg::print(layerVector);
         } 
         else if (layerIndex==m_numLayers-1)
         {
             cout << "OUTPUT LAYER:";
             vector<double> layerVector{ m_layers.at(layerIndex).getActivations() };
-            linalg::printToConsole(layerVector);   
+            linalg::print(layerVector);   
         }
         else
         {
             cout << "LAYER " << layerIndex << ":";
             vector<double> layerVector{ m_layers.at(layerIndex).getActivations() };
-            linalg::printToConsole(layerVector);
+            linalg::print(layerVector);
         }
     }
     cout << endl;

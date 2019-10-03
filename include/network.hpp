@@ -1,11 +1,13 @@
 #ifndef _NETWORK_HPP_
 #define _NETWORK_HPP_
 
-#include <vector>
-#include "matrix.hpp"
+#include "math/matrix.h"
 #include "layer.hpp"
 
+#include <vector>
+
 using namespace std;
+using weightMatrix = linalg::Matrix<double>;
 
 class Network {
     /*
@@ -27,10 +29,10 @@ class Network {
     private:
         const double m_LEARNINGRATE{0.2};     // Learning rate
 
-        vector<int> m_layerSizes;             // A vector of integers containing the number of neurons in each layer.
-        int m_numLayers;                // A separate variable equal to the length of layerSizes, for more concise code.
-        vector<Layer> m_layers;               // A vector containing the actual layer objects of the network. 
-        vector<Matrix> m_weightMatrices;      // A vector of weight matrices for the connections between adjacent layers.
+        vector<int> m_layerSizes;              // A vector of integers containing the number of neurons in each layer.
+        int m_numLayers;                       // A separate variable equal to the length of layerSizes, for more concise code.
+        vector<Layer> m_layers;                // A vector containing the actual layer objects of the network. 
+        vector<weightMatrix> m_weightMatrices; // A vector of weight matrices for the connections between adjacent layers.
         vector<vector<double>> m_errors;       // A multidimensional vector containing the errors from the most recent backpropagation.
         
         vector<double> m_input;               // Inputs of the input neurons.
