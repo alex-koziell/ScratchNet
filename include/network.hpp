@@ -17,7 +17,7 @@ class Network {
     public:
         Network(vector<int> &layerSizes);
 
-        void printToConsole(); // Displays the structure of the network in the console
+        void printToConsole() const; // Displays the structure of the network in the console
 
         void setInput(vector<double> &input);   // Sets the input values of the input neurons.
         void setTarget(vector<double> &target) { m_targetOutput = target; }  // Sets the target output for the current element of the training set.
@@ -25,10 +25,10 @@ class Network {
         void train(vector<vector<vector<double>>> trainingData);  // Trains the network on appropiately-typed data vector.   
     
     private:
-        const double m_LEARNINGRATE{0.3};     // Learning rate
+        const double m_LEARNINGRATE{0.2};     // Learning rate
 
         vector<int> m_layerSizes;             // A vector of integers containing the number of neurons in each layer.
-        int m_numLayers;                      // A separate variable equal to the length of layerSizes, for more concise code.
+        int m_numLayers;                // A separate variable equal to the length of layerSizes, for more concise code.
         vector<Layer> m_layers;               // A vector containing the actual layer objects of the network. 
         vector<Matrix> m_weightMatrices;      // A vector of weight matrices for the connections between adjacent layers.
         vector<vector<double>> m_errors;       // A multidimensional vector containing the errors from the most recent backpropagation.

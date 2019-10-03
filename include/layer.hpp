@@ -9,10 +9,9 @@ using namespace std;
 
 class Layer
 {
-/*
-Class to hold a layer of neurons, allowing for layer-wise
-operations on the network.
-*/
+    /*
+    A vector of neurons, facilitating layer-wise operations on the network.
+    */
 
     public:
         Layer(int numNeurons);
@@ -20,12 +19,12 @@ operations on the network.
         void setInputAt(int neuronIndex, double input); // Set the value of the neuron at neuronIndex to the value specified by input.
         void setBiasAt (int neuronIndex, double bias);  // Sets bias of neuron at neuronIndex
 
-        vector<double> getInputs();        // NEEDS DESCRIPTION
-        double getBiasAt(int neuronIndex);
-        vector<double> getActivations();   // ^
-        vector<double> getDerivatives();   // ^
+        vector<double> getInputs()        const;   // Returns a vector of the neuron inputs for this layer.
+        vector<double> getActivations()   const;   // Returns a vector of the neuron activations.
+        vector<double> getDerivatives()   const;   // Returns a vector of the neuron derivatives.
+        double getBiasAt(int neuronIndex) const;   // Returns the bias of the neuron at neuronIndex.
 
-        int getSize() { return m_numNeurons; }
+        int getSize() const { return m_numNeurons; }
 
     private:
         int m_numNeurons;           // Number of neurons in the layer.

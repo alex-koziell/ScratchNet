@@ -179,7 +179,7 @@ void Network::train(vector<vector<vector<double>>> trainingData)
     }
 }
 
-void Network::printToConsole()
+void Network::printToConsole() const
 {
     /*
     Prints the input values of the neurons in the input layer,

@@ -1,25 +1,27 @@
 #include "../include/neuron.hpp"
 #include <cmath>
 
-Neuron::Neuron(double input) {
+Neuron::Neuron(double input)
+{
     m_input = input;
     activate();
     derive();
 }
 
-Neuron::Neuron(double input, double bias) {
+Neuron::Neuron(double input, double bias)
+{
     m_input = input;
     m_bias = bias;
     activate();
     derive();
 }
 
-void Neuron::setInput(double newInput) {
+void Neuron::setInput(double newInput)
+{
     /*
     Sets the neuron's input to a new value, then
     recomputes the activation and its derivative.
     */
-
     m_input = newInput;
     activate();
     derive();
@@ -40,7 +42,6 @@ void Neuron::activate() {
     Now using tanh(x), which works on XOR!
 
     */
-
     m_activation = tanh(m_input + m_bias);
 }
 
@@ -53,6 +54,5 @@ void Neuron::derive() {
     d/dx(tanh(x)) = 1 - tanh^2(x)
 
     */
-
     m_derivative = 1 - m_activation * m_activation;
 }
