@@ -1,5 +1,4 @@
 #include "../include/layer.hpp"
-#include "../include/matrix.hpp"
 
 Layer::Layer(int numNeurons) {
     /*
