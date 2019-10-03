@@ -2,7 +2,7 @@
 #include "../include/math/linearalgebra.h"
 #include "../include/neuron.hpp"
 #include "../include/network.hpp"
-// // #include "./tests/test_linearalgebra.cpp"
+#include "./tests/test_linearalgebra.cpp"
 // #include "../include/utils/linearalgebra.hpp"
 #include "../include/utils/preprocessor.hpp"
 #include "./tests/test_preprocessor.cpp"
@@ -37,34 +37,15 @@ int main() {
     /* ---------------TESTS/DEBUG---------------*/
 
     /* Linear algebra tests */
-    // test_multiplyMatrices();
-    // test_matrixVectorProduct();
-    // test_transposeMatrix();
-    // test_hadamardProduct();
+    test_matrixMultiplication();
+    test_matrixVectorMultiplication();
+    test_transposeMatrix();
+    test_hadamardProduct();
 
     /* Preprocessor test */
     // test_preprocessor();
 
     /*------------------------------------------*/
-
-    linalg::Matrix<double> A(3,3,true);
-    A.print();
-
-    linalg::Matrix<double> AT = A.transpose();
-    AT.print();
-
-    linalg::Matrix<double> AAT = A*AT;
-    AAT.print();
-
-    vector<double> v {1, 2, 3};
-    vector<double> u {A*v};
-
-    cout<<"Matrix A:"<<endl;
-    A.print();
-    cout<<"times vector v:"<<endl;
-    linalg::print(v);
-    cout<<"equals vector u:"<<endl;
-    linalg::print(u);
 
     return 0;
 }

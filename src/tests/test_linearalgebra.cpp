@@ -1,47 +1,60 @@
-#include "../../include/matrix.hpp"
-#include "../../include/utils/linearalgebra.hpp"
+#include "../../include/math/matrix.h"
+#include "../../include/math/linearalgebra.h"
 
 #include <vector>
 
 using namespace std;
 
-void test_multiplyMatrices()
+void test_transposeMatrix()
 {
     /*
-    Matrix Multiplication Test
+    Matrix transposition test.
     */
-    Matrix A {1, 2, true};
-    Matrix B {2, 3, true};
-
-    Matrix C = linalg::multiplyMatrices(A, B);
-
-    cout << "Matrix A:" << endl;
-    A.printToConsole();
-    cout << endl << "Matrix B:" << endl;
-    B.printToConsole();
-    cout << endl << "Matrix C = AB:" << endl;
-    C.printToConsole();
+    cout << endl << "Matrix A:" << endl;
+    linalg::Matrix<double> A(3,3,true);
+    A.print();
+    cout << endl << "A transpose:" << endl;
+    linalg::Matrix<double> AT = A.transpose();
+    AT.print();
     cout << endl;
-
 }
 
-void test_matrixVectorProduct()
+void test_matrixMultiplication()
+{
+    /*
+    Matrix multiplication test
+    */
+    linalg::Matrix<double> A {1, 2, true};
+    linalg::Matrix<double> B {2, 3, true};
+
+    linalg::Matrix<double> C = A*B;
+
+    cout << "Matrix A:" << endl;
+    A.print();
+    cout << endl << "Matrix B:" << endl;
+    B.print();
+    cout << endl << "Matrix C = AB:" << endl;
+    C.print();
+    cout << endl;
+}
+
+void test_matrixVectorMultiplication()
 {
     /*
     Matrix-vector multiplication test.
     */
-
+    linalg::Matrix<double> A(3,3,true);
     vector<double> v {1, 2, 3};
-    Matrix A {3, 3, true};
-    vector<double> u {linalg::matrixVectorProduct(A, v)};
+
+    vector<double> u {A*v};
 
     cout<<"Matrix A:"<<endl;
-    A.printToConsole();
+    A.print();
     cout<<"times vector v:"<<endl;
-    linalg::printToConsole(v);
+    linalg::print(v);
     cout<<"equals vector u:"<<endl;
-    linalg::printToConsole(u);
-
+    linalg::print(u);
+    cout<<endl;
 }
 
 void test_hadamardProduct()
@@ -52,26 +65,10 @@ void test_hadamardProduct()
     vector<double> w = linalg::hadamardProduct(v, u);
     
     cout<<"Vector v:"<<endl;
-    linalg::printToConsole(v);
+    linalg::print(v);
     cout<<"Hadamard Product with vector u:"<<endl;
-    linalg::printToConsole(u);
+    linalg::print(u);
     cout<<"equals vector w:"<<endl;
-    linalg::printToConsole(w);
+    linalg::print(w);
+    cout<<endl;
 }
-
-void test_transposeMatrix()
-{
-    /*
-    Matrix Transpose Test 
-    */
-    
-    cout << "Matrix M:" << endl;
-    Matrix M = Matrix(3, 3, true);
-    M.printToConsole();
-    cout << endl << "M tranposed:" << endl;
-    Matrix MT = linalg::transposeMatrix(M);
-    MT.printToConsole();
-    cout << endl;
-
-}
-
