@@ -6,13 +6,17 @@ Network::Network(vector<int> &layerSizes)
 {
     m_layerSizes = layerSizes;
     m_numLayers = layerSizes.size();
+    
+    m_errors.resize(m_numLayers-1);
+    for (int l=0; l<m_numLayers-1; ++l)
+    {
+        m_errors.at(l).resize(m_layerSizes.at(l+1));
+    }
 
-    // cout << "CREATING " << numLayers << " LAYERS..." << endl;
     for (int layerNum=0; layerNum<m_numLayers; ++layerNum)
     { 
         m_layers.push_back(Layer(layerSizes.at(layerNum))); // Then add it to this network's vector of layers.
     }
-    // cout << m_layers.size() << " LAYERS CREATED." << endl;
 
     for (int layerNum=0; layerNum<m_numLayers-1; ++layerNum)
     {
@@ -87,10 +91,10 @@ void Network::backPropagate()
     // Calculate output error
     // the index in m_errors goes in reverse order, from the output layer to the input layer
     // (this makes it easier to use of back() and push_back())
-    m_errors.push_back(linalg::hadamardProduct(gradCost, outputDerivatives));
+    m_errors.at(m_numLayers-2) = linalg::hadamardProduct(gradCost, outputDerivatives);
 
     cout << "ERRORS:";
-    linalg::print(m_errors.at(0));
+    linalg::print(m_errors.at(m_numLayers-2));
 
     // Backpropagate the error
     for(int i=m_numLayers-2; i>0; --i) // m_numLayers should be equal to m_weightMatrices.size()-1
@@ -98,12 +102,12 @@ void Network::backPropagate()
         linalg::Matrix<double> weights_T { m_weightMatrices.at(i).transpose() };
         vector<double> thisLayerDerivatives { m_layers.at(i).getDerivatives() };
 
-        vector<double> backpropagatedError { weights_T * m_errors.back() };
+        vector<double> backpropagatedError { weights_T * m_errors.at(i) };
         vector<double> thisLayerError {linalg::hadamardProduct(backpropagatedError, thisLayerDerivatives)};
 
-        m_errors.push_back(thisLayerError);
+        m_errors.at(i-1) = thisLayerError; // m_errors goes from 0 to m_numLayers-2, where the first entry is the error in the first hidden layer
 
-        linalg::print(m_errors.back());
+        linalg::print(m_errors.at(i-1));
         cout << endl;
     };
 }
@@ -118,7 +122,7 @@ void Network::update()
    for(int l=0; l<m_weightMatrices.size(); ++l)
    {
         linalg::Matrix<double> &currentWeightMatrix = m_weightMatrices.at(l);      // weight of connections from layer l to layer l+1
-        vector<double> &currentError = m_errors.at(m_errors.size()-1-l); // layer indices in reverse order for m_errors (perhaps introduce sorting if not computationally costly?)
+        vector<double> &currentError = m_errors.at(l);
 
         // neuron indexing: i in layer l and j in layer l+1
         for(int j=0; j<m_layers.at(l+1).getSize(); ++j)
@@ -128,7 +132,7 @@ void Network::update()
                 double newWeight { currentWeightMatrix(j,i)     // connection weight from neuron i to neuron j
                                  - m_LEARNINGRATE 
                                  * m_layers.at(l).getActivations().at(i) // activation of neuron i in layer l
-                                 * m_errors.at(m_errors.size()-1-l).at(j) };     // error of neuron j in layer l+1
+                                 * m_errors.at(l).at(j) };     // error of neuron j in layer l+1
                 
                 currentWeightMatrix(j, i) = newWeight;
             }
@@ -136,7 +140,7 @@ void Network::update()
             // update neuron j's bias
             double newBias { m_layers.at(l+1).getBiasAt(j) 
                            - m_LEARNINGRATE
-                           * m_errors.at(m_errors.size()-1-l).at(j)};
+                           * m_errors.at(l).at(j)};
             m_layers.at(l+1).setBiasAt(j, newBias);
         }
    }
@@ -170,7 +174,6 @@ void Network::train(vector<vector<vector<double>>> trainingData)
         }
 
         /* Backpropagate */
-        m_errors.clear();  // Clear the error from any previous training loop
         backPropagate();
 
         /* Update weights */
