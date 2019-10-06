@@ -2,6 +2,12 @@
 #include "../include/math/linearalgebra.h"
 #include "../include/math/numerical.h"
 
+#include <iostream>
+#include <vector>
+
+
+using namespace std;
+
 Network::Network(vector<int> &layerSizes)
 {
     m_layerSizes = layerSizes;
@@ -70,7 +76,7 @@ void Network::feedForward()
     }
 }
 
-void Network::backPropagate()
+void Network::backPropagate(bool isNewBatch)
 {
     /*
     Implements backpropagation using quadratic cost function,
@@ -88,12 +94,20 @@ void Network::backPropagate()
         gradCost.push_back(output.at(i) - m_targetOutput.at(i));
     }
 
-    // Calculate output error
-    // the index in m_errors goes in reverse order, from the output layer to the input layer
-    // (this makes it easier to use of back() and push_back())
-    m_errors.at(m_numLayers-2) = linalg::hadamardProduct(gradCost, outputDerivatives);
+    // Output error
+    if (isNewBatch)
+    {
+        m_errors.at(m_numLayers-2) = linalg::hadamardProduct(gradCost, outputDerivatives);
+    }
+    else
+    { 
+        vector<double> &accumulatedError = m_errors.at(m_numLayers-2);
+        vector<double> lastError { linalg::hadamardProduct(gradCost, outputDerivatives) };
+        accumulatedError += lastError;
+    }
+    
 
-    cout << "ERRORS:";
+    std::cout << "ERRORS:";
     linalg::print(m_errors.at(m_numLayers-2));
 
     // Backpropagate the error
@@ -105,10 +119,19 @@ void Network::backPropagate()
         vector<double> backpropagatedError { weights_T * m_errors.at(i) };
         vector<double> thisLayerError {linalg::hadamardProduct(backpropagatedError, thisLayerDerivatives)};
 
-        m_errors.at(i-1) = thisLayerError; // m_errors goes from 0 to m_numLayers-2, where the first entry is the error in the first hidden layer
+        // m_errors goes from 0 to m_numLayers-2, where the first entry is the error in the first hidden layer
+        if (isNewBatch)
+        {
+            m_errors.at(i-1) = thisLayerError;
+        }
+        else
+        { 
+            vector<double> &accumulatedError = m_errors.at(i-1);
+            accumulatedError += thisLayerError;
+        }
 
         linalg::print(m_errors.at(i-1));
-        cout << endl;
+        std::cout << endl;
     };
 }
 
@@ -130,7 +153,7 @@ void Network::update()
             for(int i=0; i<m_layers.at(l).getSize(); ++i)
             {
                 double newWeight { currentWeightMatrix(j,i)     // connection weight from neuron i to neuron j
-                                 - m_LEARNINGRATE 
+                                 - m_LEARNINGRATE / m_BATCHSIZE
                                  * m_layers.at(l).getActivations().at(i) // activation of neuron i in layer l
                                  * m_errors.at(l).at(j) };     // error of neuron j in layer l+1
                 
@@ -138,8 +161,8 @@ void Network::update()
             }
 
             // update neuron j's bias
-            double newBias { m_layers.at(l+1).getBiasAt(j) 
-                           - m_LEARNINGRATE
+            double newBias { m_layers.at(l+1).getBiasAt(j)
+                           - m_LEARNINGRATE / m_BATCHSIZE
                            * m_errors.at(l).at(j)};
             m_layers.at(l+1).setBiasAt(j, newBias);
         }
@@ -152,7 +175,8 @@ void Network::train(vector<vector<vector<double>>> trainingData)
     Trains the network on a training set, given data in the appropriate format.
     */
 
-    int trainingPass = 0;
+    int trainingPass {1};
+    int sampleNum    {1};
 
     for (vector<vector<double>> trainingSample : trainingData) // for each training sample
     {
@@ -165,20 +189,25 @@ void Network::train(vector<vector<vector<double>>> trainingData)
         setTarget(targetOutput);
 
         /* Feedforward */
-        cout << "(PASS : " << trainingPass << ")" << endl;
+        std::cout << "(PASS : " << trainingPass << ")" << endl;
         feedForward();
         printToConsole();
         for (double output : targetOutput)
         {
-            cout << "\t(Target: " << output << ")" << endl << endl;
+            std::cout << "\t(Target: " << output << ")" << endl << endl;
         }
 
         /* Backpropagate */
-        backPropagate();
+        backPropagate(sampleNum==1);
 
-        /* Update weights */
-        update();
+        /* Update weights if end of batch */
+        if (sampleNum == m_BATCHSIZE)
+        {
+            update();
+            sampleNum = 0; // new batch, ++sampleNum below resets it to 1 by the end of the training pass
+        }
 
+        ++sampleNum;
         ++trainingPass;
     }
 }
@@ -194,22 +223,22 @@ void Network::printToConsole() const
 
         if (layerIndex==0)
         {
-            cout << "INPUT LAYER:";
+            std::cout << "INPUT LAYER:";
             vector<double> layerVector{ m_layers.at(layerIndex).getInputs() };
             linalg::print(layerVector);
         } 
         else if (layerIndex==m_numLayers-1)
         {
-            cout << "OUTPUT LAYER:";
+            std::cout << "OUTPUT LAYER:";
             vector<double> layerVector{ m_layers.at(layerIndex).getActivations() };
             linalg::print(layerVector);   
         }
         else
         {
-            cout << "LAYER " << layerIndex << ":";
+            std::cout << "LAYER " << layerIndex << ":";
             vector<double> layerVector{ m_layers.at(layerIndex).getActivations() };
             linalg::print(layerVector);
         }
     }
-    cout << endl;
+    std::cout << endl;
 }

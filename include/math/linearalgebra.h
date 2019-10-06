@@ -5,10 +5,58 @@
 
 #include <assert.h>
 
+
+using namespace std;
+
+template <typename T>
+vector<T> operator+(vector<T> &v, vector<T> &u);
+
+template <typename T>
+vector<T> operator+(vector<T> &v, vector<T> &u)
+{
+    /*
+    Standard vector addition as defined for Cartesian product vectors.
+    v + u = w
+    */
+
+    if (v.size() != u.size())
+    {
+        cerr << "Vector v is of size   " << v.size() << endl
+        << "...but vector u is of size " << u.size() << "!" << endl;
+        assert(false);
+    }
+
+    vector<T> w;
+    for (int i=0; i<v.size(); ++i)
+    {
+        w.push_back( v.at(i) + u.at(i) );
+    }
+    return w;
+}
+
+template <typename T>
+void operator+=(vector<T> &v, const vector<T> &u)
+{
+    /*
+    Standard vector addition as defined for Cartesian product vectors.
+    v += w
+    */
+    
+    if (v.size() != u.size())
+    {
+        cerr << "Vector v is of size   " << v.size() << endl
+        << "...but vector u is of size " << u.size() << "!" << endl;
+        assert(false);
+    }
+
+    for (int i=0; i<v.size(); ++i)
+    {
+        v.at(i) += u.at(i);
+    }
+}
+
 namespace linalg
 {
-    using namespace std;
-
     template <typename T>
     Matrix<T> operator* (Matrix<T> &A, Matrix<T> &B)
     {
@@ -59,6 +107,7 @@ namespace linalg
         return u;
     }
 
+
     template <typename T>
     vector<T> hadamardProduct (vector<T> &u, vector<T> &v)
     {
@@ -98,7 +147,9 @@ namespace linalg
     }
     cout << "]" << endl;
     }
-
 }
+
+// the following need to be declared at global scope
+// https://stackoverflow.com/questions/14420209/overloading-operators-for-vectordouble-class
 
 #endif

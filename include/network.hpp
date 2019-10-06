@@ -28,6 +28,7 @@ class Network {
     
     private:
         const double m_LEARNINGRATE{0.2};     // Learning rate
+        const int    m_BATCHSIZE{1};
 
         vector<int> m_layerSizes;              // A vector of integers containing the number of neurons in each layer.
         int m_numLayers;                       // A separate variable equal to the length of layerSizes, for more concise code.
@@ -39,7 +40,7 @@ class Network {
         vector<double> m_targetOutput;        // Target activations.
 
         void feedForward();                   // Implements feed forward part of learning.
-        void backPropagate();                 // Implements back propagtion part of learning.
+        void backPropagate(bool isNewBatch);  // Implements back propagtion part of learning.
         void update();                        // Updates the weight matrices and neuron biases using current error.
 
 };
