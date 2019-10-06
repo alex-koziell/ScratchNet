@@ -100,10 +100,8 @@ void Network::backPropagate(bool isNewBatch)
         m_errors.at(m_numLayers-2) = linalg::hadamardProduct(gradCost, outputDerivatives);
     }
     else
-    { 
-        vector<double> &accumulatedError = m_errors.at(m_numLayers-2);
-        vector<double> lastError { linalg::hadamardProduct(gradCost, outputDerivatives) };
-        accumulatedError += lastError;
+    {
+        m_errors.at(m_numLayers-2) += linalg::hadamardProduct(gradCost, outputDerivatives);
     }
     
 
@@ -125,9 +123,8 @@ void Network::backPropagate(bool isNewBatch)
             m_errors.at(i-1) = thisLayerError;
         }
         else
-        { 
-            vector<double> &accumulatedError = m_errors.at(i-1);
-            accumulatedError += thisLayerError;
+        {
+            m_errors.at(i-1) += thisLayerError;
         }
 
         linalg::print(m_errors.at(i-1));
