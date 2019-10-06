@@ -7,12 +7,10 @@
 
 
 using namespace std;
+using namespace linalg;
 
 template <typename T>
-vector<T> operator+(vector<T> &v, vector<T> &u);
-
-template <typename T>
-vector<T> operator+(vector<T> &v, vector<T> &u)
+vector<T> operator+(const vector<T> &v, const vector<T> &u)
 {
     /*
     Standard vector addition as defined for Cartesian product vectors.
@@ -55,59 +53,58 @@ void operator+=(vector<T> &v, const vector<T> &u)
     }
 }
 
+template <typename T>
+Matrix<T> operator* (Matrix<T> &A, Matrix<T> &B)
+{
+    /*
+    Multiplies two matrices using the iterative (naive) algorithm.
+    */
+
+    Matrix<T> C(A.shape()[0], B.shape()[1]);
+    for (int i=0; i<A.shape()[0]; ++i)     // for each row of A
+    {
+        for (int j=0; j<B.shape()[1]; ++j) // for each column of B
+        {
+            for (int k=0; k<A.shape()[1]; ++k)
+            {
+                C(i,j) += A(i,k) * B(k,j);
+            }
+        }
+    }
+    return C;
+}
+
+template <typename T>
+vector<T> operator* (Matrix<T> &A, vector<T> &v)
+{
+    /*
+    Multiplys a matrix A with a vector v to return a vector u.
+    Av = u
+    */
+
+    // check dimensions are correct
+    if (A.shape()[1] != v.size())
+    {
+        cerr << "Matrix A is of dimensions (" << A.shape()[0] << "," << A.shape()[1] << ")," << endl
+        << "...but vector v is of size " << v.size() << "!" << endl;
+        assert(false);
+    }
+
+    vector<T> u;
+    for (int i=0; i<A.shape()[0]; ++i)
+    {
+        T u_i {};
+        for (int j=0; j<A.shape()[1]; ++j)
+        {
+            u_i += A(i,j) * v.at(j);
+        }
+        u.push_back(u_i);
+    }
+    return u;
+}
+
 namespace linalg
 {
-    template <typename T>
-    Matrix<T> operator* (Matrix<T> &A, Matrix<T> &B)
-    {
-        /*
-        Multiplies two matrices using the iterative (naive) algorithm.
-        */
-
-       Matrix<T> C(A.shape()[0], B.shape()[1]);
-       for (int i=0; i<A.shape()[0]; ++i)     // for each row of A
-       {
-           for (int j=0; j<B.shape()[1]; ++j) // for each column of B
-           {
-               for (int k=0; k<A.shape()[1]; ++k)
-               {
-                   C(i,j) += A(i,k) * B(k,j);
-               }
-           }
-       }
-       return C;
-    }
-
-    template <typename T>
-    vector<T> operator* (Matrix<T> &A, vector<T> &v)
-    {
-        /*
-        Multiplys a matrix A with a vector v to return a vector u.
-        Av = u
-        */
-
-        // check dimensions are correct
-        if (A.shape()[1] != v.size())
-        {
-            cerr << "Matrix A is of dimensions (" << A.shape()[0] << "," << A.shape()[1] << ")," << endl
-            << "...but vector v is of size " << v.size() << "!" << endl;
-            assert(false);
-        }
-
-        vector<T> u;
-        for (int i=0; i<A.shape()[0]; ++i)
-        {
-            T u_i {};
-            for (int j=0; j<A.shape()[1]; ++j)
-            {
-                u_i += A(i,j) * v.at(j);
-            }
-            u.push_back(u_i);
-        }
-        return u;
-    }
-
-
     template <typename T>
     vector<T> hadamardProduct (vector<T> &u, vector<T> &v)
     {
