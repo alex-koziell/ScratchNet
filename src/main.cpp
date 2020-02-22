@@ -25,7 +25,7 @@ int main() {
     Preprocessor trainingClass = Preprocessor("./data/XOR_train.txt"); 
     const int inputLayerSize  = trainingClass.getInputSize();
     const int outputLayerSize = trainingClass.getOutputSize();
-    vector<vector<vector<double>>> trainingData = trainingClass.getTrainingData();
+    vector<vector<vector<double>>> trainingData { trainingClass.getTrainingData() };
 
     /* Initialize network, then train */
     vector<int> layerSizes {inputLayerSize, 4, outputLayerSize};
