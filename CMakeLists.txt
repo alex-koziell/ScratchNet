@@ -17,3 +17,10 @@ add_executable(
     
     src/preprocessing/preprocessor.cpp
 )
+
+add_executable(
+    mnistLoader
+
+    src/MNIST/mnist_data_handler.cpp
+    src/MNIST/mnist_data.cpp
+)

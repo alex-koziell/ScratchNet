@@ -31,6 +31,8 @@ void MNISTDataHandler::readFeatureVector(std::string path)
         printf("Done getting image file header.\n");
         
         int imageSize = header[2]*header[3];
+        printf("Num samples: %d\n", header[1]);
+        printf("%Image size: %d pixels\n", imageSize);
         for (int i=0; i<header[1]; ++i)
         {
             MNISTData* data = new MNISTData();
@@ -46,9 +48,9 @@ void MNISTDataHandler::readFeatureVector(std::string path)
                     exit(1);
                 }
             }
-            allData.push_back(data);
+            allData->push_back(data);
         }
-        printf("Successfully read and stored %lu feature vectors.\n", allData.size());
+        printf("Successfully read and stored %lu feature vectors.\n", allData->size());
     } else
     {
         printf("Could not find file.\n");
@@ -59,8 +61,8 @@ void MNISTDataHandler::readFeatureVector(std::string path)
 
 void MNISTDataHandler::readLabels(std::string path)
 {
-        uint32_t header[2]; // MAGIC|NUMIMAGES
-    unsigned char bytes[2];
+    uint32_t header[2]; // MAGIC|NUMIMAGES
+    unsigned char bytes[4];
     FILE* f = fopen(path.c_str(), "r");
 
     if (f)
@@ -77,7 +79,7 @@ void MNISTDataHandler::readLabels(std::string path)
         for (int i=0; i<header[1]; ++i)
         {
             uint8_t element[1];
-            if (fread(element, sizeof(element), 1, f))
+            if (fread(element, sizeof(element[0]), 1, f))
             {
                 allData->at(i)->setLabel(element[0]);
             } else
@@ -114,7 +116,7 @@ void MNISTDataHandler::splitData()
         }
     }
     // Test Data
-    int count = 0;
+    count = 0;
     while (count<testSetSize)
     {
         int randIdx = rand() % allData->size();
@@ -126,7 +128,7 @@ void MNISTDataHandler::splitData()
         }
     }
     // Validation Data
-    int count = 0;
+    count = 0;
     while (count<validationSetSize)
     {
         int randIdx = rand() % allData->size();
@@ -170,3 +172,14 @@ uint32_t MNISTDataHandler::convertToLittleEndian(const unsigned char* bytes)
 std::vector<MNISTData*>* MNISTDataHandler::getTrainingData() { return trainingData; }
 std::vector<MNISTData*>* MNISTDataHandler::getTestData() { return testData; }
 std::vector<MNISTData*>* MNISTDataHandler::getValidationData() { return validationData; }
+
+int main()
+{
+    MNISTDataHandler *dataHandler = new MNISTDataHandler();
+    dataHandler->readFeatureVector("data/train-images-idx3-ubyte");
+    dataHandler->readLabels("data/train-labels-idx1-ubyte");
+    dataHandler->splitData();
+    dataHandler->countClasses();
+
+    return 0;
+}

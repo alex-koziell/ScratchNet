@@ -21,6 +21,8 @@ int main() {
     - Rule: Do not copy initialize your classes
     */
 
+   printf("ScratchNet");
+
     /* Get training data */
     Preprocessor trainingClass = Preprocessor("./data/XOR_train.txt"); 
     const int inputLayerSize  = trainingClass.getInputSize();
@@ -35,13 +37,13 @@ int main() {
 
     /* ---------------TESTS/DEBUG---------------*/
 
-    /* Linear algebra tests */
+    // /* Linear algebra tests */
     // test_matrixMultiplication();
     // test_matrixVectorMultiplication();
     // test_transposeMatrix();
     // test_hadamardProduct();
 
-    /* Preprocessor test */
+    // /* Preprocessor test */
     // test_preprocessor();
 
     /*------------------------------------------*/

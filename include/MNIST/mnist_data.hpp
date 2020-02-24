@@ -7,7 +7,7 @@
 
 class MNISTData {
     private:
-        std::vector<uint8_t>* feature_vector;
+        std::vector<uint8_t>* featureVector;
         uint8_t label;
         int enumLabel;
 
