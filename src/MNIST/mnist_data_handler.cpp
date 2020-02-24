@@ -32,7 +32,7 @@ void MNISTDataHandler::readFeatureVector(std::string path)
         
         int imageSize = header[2]*header[3];
         printf("Num samples: %d\n", header[1]);
-        printf("%Image size: %d pixels\n", imageSize);
+        printf("Image size: %d pixels\n", imageSize);
         for (int i=0; i<header[1]; ++i)
         {
             MNISTData* data = new MNISTData();

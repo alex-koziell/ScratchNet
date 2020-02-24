@@ -3,6 +3,8 @@
 #include "../include/math/matrix.h"
 #include "../include/math/linearalgebra.h"
 #include "../include/preprocessing/preprocessor.hpp"
+#include "../include/MNIST/mnist_data.hpp"
+#include "../include/MNIST/mnist_data_handler.hpp"
 
 #include "./tests/test_linearalgebra.cpp"
 #include "./tests/test_preprocessor.cpp"
