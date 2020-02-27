@@ -1,4 +1,4 @@
-#include "../../include/math/numerical.h"
+#include "math/numerical.h"
 #include <random>
 
 namespace numerical

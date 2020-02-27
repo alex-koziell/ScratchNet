@@ -1,4 +1,12 @@
-#include "../../include/MNIST/mnist_data_handler.hpp"
+#include "MNIST/mnist_data_handler.hpp"
+
+#include <fstream>
+#include <map>
+#include "stdint.h"
+#include <string>
+#include <unordered_set>
+#include <vector>
+
 
 MNISTDataHandler::MNISTDataHandler()
 {
@@ -172,14 +180,3 @@ uint32_t MNISTDataHandler::convertToLittleEndian(const unsigned char* bytes)
 std::vector<MNISTData*>* MNISTDataHandler::getTrainingData() { return trainingData; }
 std::vector<MNISTData*>* MNISTDataHandler::getTestData() { return testData; }
 std::vector<MNISTData*>* MNISTDataHandler::getValidationData() { return validationData; }
-
-// int main()
-// {
-//     MNISTDataHandler *dataHandler = new MNISTDataHandler();
-//     dataHandler->readFeatureVector("data/train-images-idx3-ubyte");
-//     dataHandler->readLabels("data/train-labels-idx1-ubyte");
-//     dataHandler->splitData();
-//     dataHandler->countClasses();
-
-//     return 0;
-// }

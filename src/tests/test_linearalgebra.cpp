@@ -1,5 +1,5 @@
-#include "../../include/math/matrix.h"
-#include "../../include/math/linearalgebra.h"
+#include "math/matrix.h"
+#include "math/linearalgebra.h"
 
 #include <vector>
 

@@ -1,6 +1,6 @@
-#include "../include/network.hpp"
-#include "../include/math/linearalgebra.h"
-#include "../include/math/numerical.h"
+#include "network.hpp"
+#include "math/linearalgebra.h"
+#include "math/numerical.h"
 
 #include <iostream>
 #include <vector>

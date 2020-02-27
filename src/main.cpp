@@ -1,13 +1,13 @@
-#include "../include/network.hpp"
+#include "network.hpp"
 
-#include "../include/math/matrix.h"
-#include "../include/math/linearalgebra.h"
-#include "../include/preprocessing/preprocessor.hpp"
-#include "../include/MNIST/mnist_data.hpp"
-#include "../include/MNIST/mnist_data_handler.hpp"
+#include "math/matrix.h"
+#include "math/linearalgebra.h"
+#include "preprocessing/preprocessor.hpp"
+#include "MNIST/mnist_data.hpp"
+#include "MNIST/mnist_data_handler.hpp"
 
-#include "./tests/test_linearalgebra.cpp"
-#include "./tests/test_preprocessor.cpp"
+#include "tests/test_linearalgebra.cpp"
+#include "tests/test_preprocessor.cpp"
 
 #include <iostream>
 #include <iomanip>

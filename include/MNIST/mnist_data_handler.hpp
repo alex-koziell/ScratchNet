@@ -1,14 +1,14 @@
 #ifndef MNIST_DATA_HANDLER_HPP
 #define MNIST_DATA_HANDLER_HPP
 
+#include "mnist_data.hpp"
+
 #include <fstream>
 #include <map>
 #include "stdint.h"
 #include <string>
 #include <unordered_set>
 #include <vector>
-
-#include "mnist_data.hpp"
 
 class MNISTDataHandler {
     private:

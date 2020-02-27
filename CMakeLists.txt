@@ -6,6 +6,18 @@ set (CMAKE_BUILD_TYPE Debug)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -DEUCLIDEAN")
 
 add_executable(
+    mnistTest
+
+    src/MNIST/mnist_data_handler.cpp
+    src/MNIST/mnist_data.cpp
+    src/MNIST/mnist_main.cpp
+)
+target_include_directories(
+    mnistTest PUBLIC
+    "${PROJECT_BINARY_DIR}/include"
+)
+
+add_executable(
     scratchnet
     
     src/main.cpp
@@ -17,6 +29,10 @@ add_executable(
     
     src/preprocessing/preprocessor.cpp
 )
+target_include_directories(
+    scratchnet PUBLIC
+    "${PROJECT_BINARY_DIR}/include"
+)
 
 add_executable(
     knn
@@ -24,4 +40,9 @@ add_executable(
     src/MNIST/mnist_data_handler.cpp
     src/MNIST/mnist_data.cpp
     src/KNN/knn.cpp
+    src/KNN/knn_main.cpp
+)
+target_include_directories(
+    knn PUBLIC
+    "${PROJECT_BINARY_DIR}/include"
 )

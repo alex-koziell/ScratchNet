@@ -1,4 +1,4 @@
-#include "../include/layer.hpp"
+#include "layer.hpp"
 
 Layer::Layer(int numNeurons) {
     /*

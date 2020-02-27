@@ -1,8 +1,8 @@
 #ifndef KNN_HPP
 #define KNN_HPP
 
+#include "MNIST/mnist_data.hpp"
 #include <vector>
-#include "../MNIST/mnist_data.hpp"
 
 class KNN {
     private:

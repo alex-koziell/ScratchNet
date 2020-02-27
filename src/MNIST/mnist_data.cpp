@@ -1,4 +1,7 @@
-#include "../../include/MNIST/mnist_data.hpp"
+#include "MNIST/mnist_data.hpp"
+
+#include <vector>
+#include "stdint.h"
 
 MNISTData::MNISTData()
 {

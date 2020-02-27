@@ -1,7 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "./numerical.h"
+#include "numerical.h"
 
 #include <iostream>
 #include <iomanip>
