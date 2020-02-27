@@ -173,13 +173,13 @@ std::vector<MNISTData*>* MNISTDataHandler::getTrainingData() { return trainingDa
 std::vector<MNISTData*>* MNISTDataHandler::getTestData() { return testData; }
 std::vector<MNISTData*>* MNISTDataHandler::getValidationData() { return validationData; }
 
-int main()
-{
-    MNISTDataHandler *dataHandler = new MNISTDataHandler();
-    dataHandler->readFeatureVector("data/train-images-idx3-ubyte");
-    dataHandler->readLabels("data/train-labels-idx1-ubyte");
-    dataHandler->splitData();
-    dataHandler->countClasses();
+// int main()
+// {
+//     MNISTDataHandler *dataHandler = new MNISTDataHandler();
+//     dataHandler->readFeatureVector("data/train-images-idx3-ubyte");
+//     dataHandler->readLabels("data/train-labels-idx1-ubyte");
+//     dataHandler->splitData();
+//     dataHandler->countClasses();
 
-    return 0;
-}
+//     return 0;
+// }

@@ -10,6 +10,7 @@ class MNISTData {
         std::vector<uint8_t>* featureVector;
         uint8_t label;
         int enumLabel;
+        double distance;
 
     public:
         MNISTData();
@@ -19,11 +20,13 @@ class MNISTData {
         void appendToFeatureVector(uint8_t);
         void setLabel(uint8_t);
         void setEnumLabel(int);
+        void setDistance(double);
 
         int featureVectorSize();
         uint8_t getLabel();
         int getEnumLabel();
         std::vector<uint8_t>* getFeatureVector();
+        double getDistance();
 };
 
 #endif
