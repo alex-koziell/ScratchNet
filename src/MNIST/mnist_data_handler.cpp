@@ -177,6 +177,7 @@ uint32_t MNISTDataHandler::convertToLittleEndian(const unsigned char* bytes)
                         bytes[3]);
 }
 
+int MNISTDataHandler::getClassCounts() { return numClasses; }
 std::vector<MNISTData*>* MNISTDataHandler::getTrainingData() { return trainingData; }
 std::vector<MNISTData*>* MNISTDataHandler::getTestData() { return testData; }
 std::vector<MNISTData*>* MNISTDataHandler::getValidationData() { return validationData; }

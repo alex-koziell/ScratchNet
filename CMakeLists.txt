@@ -37,6 +37,7 @@ target_include_directories(
 add_executable(
     knn
 
+    src/common.cpp
     src/MNIST/mnist_data_handler.cpp
     src/MNIST/mnist_data.cpp
     src/KNN/knn.cpp
@@ -44,5 +45,19 @@ add_executable(
 )
 target_include_directories(
     knn PUBLIC
+    "${PROJECT_BINARY_DIR}/include"
+)
+
+add_executable(
+    kmeans
+
+    src/common.cpp
+    src/MNIST/mnist_data_handler.cpp
+    src/MNIST/mnist_data.cpp
+    src/KMeans/kmeans.cpp
+    src/KMeans/kmeans_main.cpp
+)
+target_include_directories(
+    kmeans PUBLIC
     "${PROJECT_BINARY_DIR}/include"
 )

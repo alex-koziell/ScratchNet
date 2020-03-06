@@ -36,11 +36,11 @@ class MNISTDataHandler {
         
 
         uint32_t convertToLittleEndian(const unsigned char* bytes);
+
+        int getClassCounts();
         std::vector<MNISTData*>* getTrainingData();
         std::vector<MNISTData*>* getTestData();
         std::vector<MNISTData*>* getValidationData();
-
-
 
 };
 

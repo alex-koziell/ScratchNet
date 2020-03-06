@@ -8,6 +8,8 @@
 class MNISTData {
     private:
         std::vector<uint8_t>* featureVector;
+        std::vector<double> doubleFeatureVector;
+        std::vector<int> classVector;
         uint8_t label;
         int enumLabel;
         double distance;
@@ -27,6 +29,8 @@ class MNISTData {
         int getEnumLabel();
         std::vector<uint8_t>* getFeatureVector();
         double getDistance();
+
+        
 };
 
 #endif

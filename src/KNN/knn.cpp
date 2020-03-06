@@ -49,9 +49,6 @@ void KNN::findKNearest(MNISTData* queryPoint)
         }
     }
 }
-void KNN::setTrainingData(std::vector<MNISTData*>* data)   { trainingData = data; }
-void KNN::setTestData(std::vector<MNISTData*>* data)       { testData = data; }
-void KNN::setValidationData(std::vector<MNISTData*>* data) { validationData = data; }
 void KNN::setK(int value) { k = value; }
 
 int KNN::predictClass()
