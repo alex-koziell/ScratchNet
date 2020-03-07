@@ -6,14 +6,14 @@
 
 class commonData {
     protected:
-        std::vector<MNISTData*>* trainingData;
-        std::vector<MNISTData*>* testData;
-        std::vector<MNISTData*>* validationData;
+        std::vector<MNISTData> trainingData;
+        std::vector<MNISTData> testData;
+        std::vector<MNISTData> validationData;
 
     public:
-        void setTrainingData(std::vector<MNISTData*>* data);
-        void setTestData(std::vector<MNISTData*>* data);
-        void setValidationData(std::vector<MNISTData*>* data);
+        void setTrainingData(std::vector<MNISTData> data);
+        void setTestData(std::vector<MNISTData> data);
+        void setValidationData(std::vector<MNISTData> data);
 };
 
 

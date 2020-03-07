@@ -29,7 +29,7 @@ class Neuron
         double m_input;       // Input value
         double m_activation;  // Activation of the neuron.
         double m_derivative;  // Derivative of the neuron's input.
-        double m_bias{0.0};   // neuron's bias
+        double m_bias{0.5};   // neuron's bias
 };
 
 #endif

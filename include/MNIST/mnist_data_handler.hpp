@@ -12,10 +12,10 @@
 
 class MNISTDataHandler {
     private:
-        std::vector<MNISTData*>* allData;
-        std::vector<MNISTData*>* trainingData;
-        std::vector<MNISTData*>* testData;
-        std::vector<MNISTData*>* validationData;
+        std::vector<MNISTData> allData;
+        std::vector<MNISTData> trainingData;
+        std::vector<MNISTData> testData;
+        std::vector<MNISTData> validationData;
 
         int numClasses;
         int featureVectorSize;
@@ -26,21 +26,17 @@ class MNISTDataHandler {
         const double VALIDATION_SET_PERCENT {0.2};
 
     public:
-        MNISTDataHandler();
-        ~MNISTDataHandler();
-
         void readFeatureVector(std::string path);
         void readLabels(std::string path);
         void splitData();
         void countClasses();
         
-
         uint32_t convertToLittleEndian(const unsigned char* bytes);
 
         int getClassCounts();
-        std::vector<MNISTData*>* getTrainingData();
-        std::vector<MNISTData*>* getTestData();
-        std::vector<MNISTData*>* getValidationData();
+        std::vector<MNISTData>& getTrainingData();
+        std::vector<MNISTData>& getTestData();
+        std::vector<MNISTData>& getValidationData();
 
 };
 

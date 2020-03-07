@@ -25,14 +25,34 @@ int main() {
 
    printf("ScratchNet");
 
-    /* Get training data */
-    Preprocessor trainingClass = Preprocessor("./data/XOR_train.txt"); 
-    const int inputLayerSize  = trainingClass.getInputSize();
-    const int outputLayerSize = trainingClass.getOutputSize();
-    vector<vector<vector<double>>> trainingData { trainingClass.getTrainingData() };
+    // /* Get training data */
+    // Preprocessor trainingClass("./data/XOR_train.txt"); 
+    // const int inputLayerSize  = trainingClass.getInputSize();
+    // const int outputLayerSize = trainingClass.getOutputSize();
+    // vector<vector<vector<double>>> trainingData { trainingClass.getTrainingData() };
+
+    MNISTDataHandler dataHandler{MNISTDataHandler()};
+
+    dataHandler.readFeatureVector("data/train-images-idx3-ubyte");
+    dataHandler.readLabels("data/train-labels-idx1-ubyte");
+    dataHandler.splitData();
+    dataHandler.countClasses();
+
+    cout << "Preproccessing Training Data for Network" << endl;
+    vector<vector<vector<double>>> trainingData(dataHandler.getTrainingData().size());
+    for (int i=0; i<dataHandler.getTrainingData().size(); ++i)
+    {
+        vector<vector<double>> currentSample
+        {
+        dataHandler.getTrainingData().at(i).getFeatureVector(),
+        dataHandler.getTrainingData().at(i).getClassVector()
+        };
+        trainingData.at(i) = currentSample;
+    }
 
     /* Initialize network, then train */
-    vector<int> layerSizes {inputLayerSize, 4, outputLayerSize};
+    cout << "Training Network for " << dataHandler.getClassCounts() << " classes." << endl;
+    vector<int> layerSizes {784, 64, dataHandler.getClassCounts()};
     Network neuralNetwork {Network(layerSizes)};
     neuralNetwork.train(trainingData);
 

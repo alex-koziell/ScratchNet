@@ -7,27 +7,27 @@
 
 class MNISTData {
     private:
-        std::vector<uint8_t>* featureVector;
-        std::vector<double> doubleFeatureVector;
-        std::vector<int> classVector;
-        uint8_t label;
-        int enumLabel;
+        std::vector<double> featureVector;
+        std::vector<double> classVector;
+        int label;
+        int NUM_CLASSES {10};
+
+        // KNN
         double distance;
 
     public:
-        MNISTData();
-        ~MNISTData();
-
-        void setFeatureVector(std::vector<uint8_t>*);
-        void appendToFeatureVector(uint8_t);
-        void setLabel(uint8_t);
-        void setEnumLabel(int);
-        void setDistance(double);
-
+        void setFeatureVector(std::vector<double>);
+        void appendToFeatureVector(double);
+        void setLabel(int);
+        
         int featureVectorSize();
-        uint8_t getLabel();
+        int getLabel();
         int getEnumLabel();
-        std::vector<uint8_t>* getFeatureVector();
+        std::vector<double> getFeatureVector();
+        std::vector<double> getClassVector();
+
+        // KNN
+        void setDistance(double);
         double getDistance();
 
         
