@@ -93,7 +93,6 @@ void Network::backPropagate(bool isNewBatch)
     {
         gradCost.push_back(output.at(i) - m_targetOutput.at(i));
     }
-
     // Output error
     if (isNewBatch)
     {
@@ -127,7 +126,7 @@ void Network::backPropagate(bool isNewBatch)
             m_errors.at(i-1) += thisLayerError;
         }
 
-        linalg::print(m_errors.at(i-1));
+        // linalg::print(m_errors.at(i-1));
         std::cout << endl;
     };
 }
@@ -188,11 +187,16 @@ void Network::train(vector<vector<vector<double>>> trainingData)
         /* Feedforward */
         std::cout << "(PASS : " << trainingPass << ")" << endl;
         feedForward();
-        printToConsole();
+        // printToConsole();
+        std::cout << "OUTPUT LAYER:";
+        vector<double> layerVector{ m_layers.at(m_numLayers-1).getActivations() };
+        linalg::print(layerVector);
+        std::cout << "Target: [";
         for (double output : targetOutput)
         {
-            std::cout << "\t(Target: " << output << ")" << endl << endl;
+            std::cout << " " << output << ",";
         }
+        std::cout << "]" << endl;
 
         /* Backpropagate */
         backPropagate(sampleNum==1);
@@ -228,7 +232,7 @@ void Network::printToConsole() const
         {
             std::cout << "OUTPUT LAYER:";
             vector<double> layerVector{ m_layers.at(layerIndex).getActivations() };
-            linalg::print(layerVector);   
+            linalg::print(layerVector);
         }
         else
         {

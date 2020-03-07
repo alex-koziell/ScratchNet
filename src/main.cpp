@@ -52,7 +52,7 @@ int main() {
 
     /* Initialize network, then train */
     cout << "Training Network for " << dataHandler.getClassCounts() << " classes." << endl;
-    vector<int> layerSizes {784, 64, dataHandler.getClassCounts()};
+    vector<int> layerSizes {784, 64, 64, dataHandler.getClassCounts()};
     Network neuralNetwork {Network(layerSizes)};
     neuralNetwork.train(trainingData);
 

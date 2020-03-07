@@ -140,7 +140,7 @@ namespace linalg
         if (i==v.size()-1)
             cout << " ";
         else
-            cout << ", " << setw(5);
+            cout << ", ";
     }
     cout << "]" << endl;
     }
