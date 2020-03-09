@@ -1,5 +1,5 @@
-#include "common.hpp"
-#include "MNIST/mnist_data.hpp"
+#include "data_processing/MNIST/common.hpp"
+#include "data_processing/MNIST/mnist_data.hpp"
 #include <vector>
 
 void commonData::setTrainingData(std::vector<MNISTData> data)   { trainingData = data; }

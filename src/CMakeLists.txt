@@ -1,0 +1,3 @@
+add_subdirectory(data_processing)
+add_subdirectory(math)
+add_subdirectory(ml_models)

@@ -1,13 +1,13 @@
-#include "network.hpp"
+#include "ml_models/DNN/network.hpp"
 
-#include "math/matrix.h"
-#include "math/linearalgebra.h"
-#include "preprocessing/preprocessor.hpp"
-#include "MNIST/mnist_data.hpp"
-#include "MNIST/mnist_data_handler.hpp"
+#include "math/matrix.hpp"
+#include "math/linearalgebra.hpp"
+//#include "preprocessing/preprocessor.hpp"
+#include "data_processing/MNIST/mnist_data.hpp"
+#include "data_processing/MNIST/mnist_data_handler.hpp"
 
-#include "tests/test_linearalgebra.cpp"
-#include "tests/test_preprocessor.cpp"
+//#include "tests/test_linearalgebra.cpp"
+//#include "tests/test_preprocessor.cpp"
 
 #include <iostream>
 #include <iomanip>
@@ -52,7 +52,7 @@ int main() {
 
     /* Initialize network, then train */
     cout << "Training Network for " << dataHandler.getClassCounts() << " classes." << endl;
-    vector<int> layerSizes {784, 64, 64, dataHandler.getClassCounts()};
+    vector<int> layerSizes {784, 32, dataHandler.getClassCounts()};
     Network neuralNetwork {Network(layerSizes)};
     neuralNetwork.train(trainingData);
 

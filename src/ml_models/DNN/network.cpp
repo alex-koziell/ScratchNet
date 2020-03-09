@@ -1,6 +1,6 @@
-#include "network.hpp"
-#include "math/linearalgebra.h"
-#include "math/numerical.h"
+#include "ml_models/DNN/network.hpp"
+#include "math/linearalgebra.hpp"
+#include "math/numerical.hpp"
 
 #include <iostream>
 #include <vector>

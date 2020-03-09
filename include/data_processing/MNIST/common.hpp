@@ -1,7 +1,7 @@
 #ifndef COMMON_HPP
 #define COMMON_HPP
 
-#include "MNIST/mnist_data.hpp"
+#include "data_processing/MNIST/mnist_data.hpp"
 #include <vector>
 
 class commonData {

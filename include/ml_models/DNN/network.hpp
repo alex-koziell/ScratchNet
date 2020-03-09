@@ -1,7 +1,7 @@
 #ifndef _NETWORK_HPP_
 #define _NETWORK_HPP_
 
-#include "math/matrix.h"
+#include "math/matrix.hpp"
 #include "layer.hpp"
 
 #include <vector>

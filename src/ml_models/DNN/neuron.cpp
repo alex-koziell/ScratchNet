@@ -1,4 +1,4 @@
-#include "neuron.hpp"
+#include "ml_models/DNN/neuron.hpp"
 #include <cmath>
 
 Neuron::Neuron(double input)

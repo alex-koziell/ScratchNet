@@ -1,4 +1,4 @@
-#include "MNIST/mnist_data_handler.hpp"
+#include "data_processing/MNIST/mnist_data_handler.hpp"
 
 #include <fstream>
 #include <map>
