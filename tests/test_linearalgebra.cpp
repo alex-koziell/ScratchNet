@@ -1,5 +1,5 @@
-#include "math/matrix.h"
-#include "math/linearalgebra.h"
+#include "math/matrix.hpp"
+#include "math/linearalgebra.hpp"
 
 #include <vector>
 
@@ -71,4 +71,14 @@ void test_hadamardProduct()
     cout<<"equals vector w:"<<endl;
     linalg::print(w);
     cout<<endl;
+}
+
+int main()
+{
+    test_matrixMultiplication();
+    test_matrixVectorMultiplication();
+    test_transposeMatrix();
+    test_hadamardProduct();
+
+    return 0;
 }

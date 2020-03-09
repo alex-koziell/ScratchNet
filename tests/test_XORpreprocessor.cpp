@@ -1,11 +1,12 @@
-#include "preprocessing/preprocessor.hpp"
+#include "data_processing/XOR/XOR_preprocessor.hpp"
 
 #include <iostream>
+#include <string>
 #include <vector>
 
-void test_preprocessor()
+void test_XORpreprocessor()
 {
-    Preprocessor trainingClass = Preprocessor("./data/XOR_train.txt"); 
+    Preprocessor trainingClass = Preprocessor("../data/XOR_train.txt"); 
     const int inputLayerSize = trainingClass.getInputSize();
     const int outputLayerSize = trainingClass.getOutputSize();
 
@@ -28,4 +29,11 @@ void test_preprocessor()
         }
         cout << endl;
     }
+}
+
+int main()
+{
+    test_XORpreprocessor();
+
+    return 0;
 }

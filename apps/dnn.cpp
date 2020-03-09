@@ -5,10 +5,6 @@
 //#include "preprocessing/preprocessor.hpp"
 #include "data_processing/MNIST/mnist_data.hpp"
 #include "data_processing/MNIST/mnist_data_handler.hpp"
-
-//#include "tests/test_linearalgebra.cpp"
-//#include "tests/test_preprocessor.cpp"
-
 #include <iostream>
 #include <iomanip>
 
@@ -55,20 +51,6 @@ int main() {
     vector<int> layerSizes {784, 32, dataHandler.getClassCounts()};
     Network neuralNetwork {Network(layerSizes)};
     neuralNetwork.train(trainingData);
-
-
-    /* ---------------TESTS/DEBUG---------------*/
-
-    // /* Linear algebra tests */
-    // test_matrixMultiplication();
-    // test_matrixVectorMultiplication();
-    // test_transposeMatrix();
-    // test_hadamardProduct();
-
-    // /* Preprocessor test */
-    // test_preprocessor();
-
-    /*------------------------------------------*/
 
     return 0;
 }
