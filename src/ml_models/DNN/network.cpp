@@ -1,4 +1,5 @@
 #include "ml_models/DNN/network.hpp"
+#include "ml_models/DNN/parameters.hpp"
 #include "math/linearalgebra.hpp"
 #include "math/numerical.hpp"
 
@@ -8,7 +9,7 @@
 
 using namespace std;
 
-Network::Network(vector<int> &layerSizes)
+Network::Network(vector<int> &layerSizes, vector<Activation> &activationTypes)
 {
     m_layerSizes = layerSizes;
     m_numLayers = layerSizes.size();
@@ -21,7 +22,7 @@ Network::Network(vector<int> &layerSizes)
 
     for (int layerNum=0; layerNum<m_numLayers; ++layerNum)
     { 
-        m_layers.push_back(Layer(layerSizes.at(layerNum))); // Then add it to this network's vector of layers.
+        m_layers.push_back(Layer(layerSizes.at(layerNum), activationTypes.at(layerNum))); // Then add it to this network's vector of layers.
     }
 
     for (int layerNum=0; layerNum<m_numLayers-1; ++layerNum)

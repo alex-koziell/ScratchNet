@@ -22,7 +22,8 @@ namespace linalg
             {
                 m_numRows = numRows;
                 m_numCols = numCols;
-                m_values.resize(m_numRows * m_numCols); // Elements are initialized to default class type (0 for int).
+                m_size    = m_numRows * m_numCols;
+                m_values.resize(m_size); // Elements are initialized to default class type (0 for int).
                 if (random)
                 {
                     randomize();
@@ -38,7 +39,7 @@ namespace linalg
                 return shape; 
             }
             
-            int size()  { return int {m_numRows * m_numCols}; } // Number of elements in the array.
+            int size()  { return m_size; } // Number of elements in the array.
 
             // WHOLE-MATRIX OPERATIONS (transpose, randomize)
             Matrix<T> transpose()
@@ -83,6 +84,7 @@ namespace linalg
         private:
             int m_numRows;
             int m_numCols;
+            int m_size;
             vector<T> m_values;
     };
 }

@@ -2,6 +2,7 @@
 #define _LAYER_HPP_
 
 #include "neuron.hpp"
+#include "parameters.hpp"
 #include <vector>
 
 using namespace std;
@@ -13,8 +14,9 @@ class Layer
     */
 
     public:
-        Layer(int numNeurons);
+        Layer(int numNeurons, Activation activationType);
 
+        void setActivationType(Activation toType);      // Set the activation type of all neurons in the layer.
         void setInputAt(int neuronIndex, double input); // Set the value of the neuron at neuronIndex to the value specified by input.
         void setBiasAt (int neuronIndex, double bias);  // Sets bias of neuron at neuronIndex
 
@@ -26,6 +28,7 @@ class Layer
         int getSize() const { return m_numNeurons; }
 
     private:
+        Activation m_activationType;
         int m_numNeurons;           // Number of neurons in the layer.
         vector<Neuron> m_neurons;   // A vector holding the this layer's neurons.
 };

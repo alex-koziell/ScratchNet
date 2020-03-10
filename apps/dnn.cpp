@@ -1,4 +1,5 @@
 #include "ml_models/DNN/network.hpp"
+#include "ml_models/DNN/parameters.hpp"
 
 #include "math/matrix.hpp"
 #include "math/linearalgebra.hpp"
@@ -34,6 +35,7 @@ int main(int argc, char *argv[]) {
         /* Get training data and network parameters */
         vector<vector<vector<double>>> trainingData;
         vector<int> layerSizes;
+        vector<Activation> activationTypes;
 
         if(!strcmp(argv[1], "XOR"))
         {
@@ -42,6 +44,7 @@ int main(int argc, char *argv[]) {
             const int outputLayerSize = trainingClass.getOutputSize();
             trainingData = trainingClass.getTrainingData();
             layerSizes = {inputLayerSize, 5, outputLayerSize};
+            activationTypes = {Activation::TANH, Activation::TANH, Activation::TANH};
         }
         else if (!strcmp(argv[1], "MNIST"))
         {
@@ -61,10 +64,11 @@ int main(int argc, char *argv[]) {
                 trainingData.at(i) = currentSample;
             }
             layerSizes = {784, 32, 10};
+            activationTypes = {Activation::RELU, Activation::RELU, Activation::FAST_SIGMOID};
         }
         
         /* Initialize network, then train */
-        Network neuralNetwork {Network(layerSizes)};
+        Network neuralNetwork {Network(layerSizes, activationTypes)};
         neuralNetwork.train(trainingData);
     }
 

@@ -1,19 +1,27 @@
 #include "ml_models/DNN/neuron.hpp"
+#include "ml_models/DNN/parameters.hpp"
 #include <cmath>
+#include <algorithm>
 
-Neuron::Neuron(double input)
+Neuron::Neuron(double input, Activation type)
 {
     m_input = input;
+    m_activationType = type;
     activate();
     derive();
 }
 
-Neuron::Neuron(double input, double bias)
+Neuron::Neuron(double input, double bias, Activation type)
 {
     m_input = input;
     m_bias = bias;
     activate();
     derive();
+}
+
+void Neuron::setActivationType(Activation type)
+{
+    m_activationType = type;
 }
 
 void Neuron::setInput(double newInput)
@@ -34,15 +42,25 @@ void Neuron::setBias(double bias)
 
 void Neuron::activate() {
     /*
-    Sets the activation value of the neuron
-
-    Originally the fast sigmoid function, f(x) = x / (1 + |x|),
-    which failed to converge on XOR training data.
-    
-    Now using tanh(x), which works on XOR!
-
+    Sets the activation value of the neuron.
     */
-    m_activation = tanh(m_input + m_bias);
+
+   switch(m_activationType)
+   {
+        case Activation::TANH:
+            m_activation = tanh(m_input + m_bias);
+            break;
+        case Activation::RELU:
+            m_activation = std::max(0.0, m_input);
+            break;
+        case Activation::FAST_SIGMOID:
+            m_activation = m_input / (1 + abs(m_input));
+            break;
+        default:
+            m_activation = tanh(m_input + m_bias);
+            break;
+   }
+    
 }
 
 void Neuron::derive() {
@@ -54,5 +72,21 @@ void Neuron::derive() {
     d/dx(tanh(x)) = 1 - tanh^2(x)
 
     */
-    m_derivative = 1 - m_activation * m_activation;
+
+    switch(m_activationType)
+    {
+        case Activation::TANH:
+            m_derivative = 1 - m_activation * m_activation;
+            break;
+        case Activation::RELU:
+            m_activation = m_input>0 ? 1 : 0;
+            break;
+        case Activation::FAST_SIGMOID:
+            m_derivative = m_activation*(1-m_activation);
+            break;
+        default:
+            m_derivative = 1 - m_activation * m_activation;
+            break;
+    }
+    
 }

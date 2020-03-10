@@ -1,6 +1,8 @@
 #include "ml_models/DNN/layer.hpp"
+#include "ml_models/DNN/parameters.hpp"
 
-Layer::Layer(int numNeurons) {
+Layer::Layer(int numNeurons, Activation activationType)
+{
     /*
     Initializes the layer with the appropriate number of neurons.
     Indices in the neuron vector start at 0, so we have neuron indices
@@ -8,10 +10,11 @@ Layer::Layer(int numNeurons) {
     */
 
     m_numNeurons = numNeurons;
+    m_activationType = activationType;
     for (int neuronIndex=0; neuronIndex<numNeurons; ++neuronIndex)
     {
         // currently initializes layer with neuron inputs all 0.0 - to be researched
-        m_neurons.push_back(Neuron(0.0));
+        m_neurons.push_back(Neuron(0.0, m_activationType));
     }
 }
 
@@ -20,6 +23,14 @@ TODO: create a more functional approach to retrieving and setting values;
 currently Layer has wayyy to much repeated for loops in getInputs(), getActivations(), etc. 
 */
 
+void Layer::setActivationType(Activation activationType)
+{
+    m_activationType = activationType;
+    for (Neuron neuron : m_neurons)
+    {
+        neuron.setActivationType(m_activationType);
+    }
+}
 
 void Layer::setInputAt(int neuronIndex, double input)
 {

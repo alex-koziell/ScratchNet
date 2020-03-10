@@ -3,6 +3,8 @@
 
 #include "math/matrix.hpp"
 #include "layer.hpp"
+#include "neuron.hpp"
+#include "parameters.hpp"
 
 #include <vector>
 
@@ -17,7 +19,7 @@ class Network {
     */
 
     public:
-        Network(vector<int> &layerSizes);
+        Network(vector<int> &layerSizes, vector<Activation> &activationTypes);
 
         void printToConsole() const; // Displays the structure of the network in the console
 

@@ -1,8 +1,9 @@
 #ifndef _NEURON_HPP_
 #define _NEURON_HPP_
 
-using namespace std;
+#include "parameters.hpp"
 
+using namespace std;
 class Neuron 
 {
     /*
@@ -12,9 +13,10 @@ class Neuron
     */
 
     public:
-        Neuron(const double input);        // Constructor for input layer neurons (with no bias)
-        Neuron(double input, double bias); // Constructor for subsequent layer neurons (with random initial bias)
+        Neuron(const double input, Activation type);        // Constructor for input layer neurons (with no bias)
+        Neuron(double input, double bias,  Activation type); // Constructor for subsequent layer neurons (with random initial bias)
 
+        void setActivationType(Activation type);      // Set type of activation function used.
         void setInput(double input);    // Function to set the input.
         void setBias(double bias);      // Set the bias.
         void activate();                // Function to compute the activation.
@@ -26,6 +28,7 @@ class Neuron
         double getBias() const       { return m_bias; }       // Accessor for neuron's bias.
 
     private:
+        Activation m_activationType;
         double m_input;       // Input value
         double m_activation;  // Activation of the neuron.
         double m_derivative;  // Derivative of the neuron's input.
