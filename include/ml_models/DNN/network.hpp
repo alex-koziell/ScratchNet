@@ -29,7 +29,7 @@ class Network {
         void train(vector<vector<vector<double>>> trainingData);  // Trains the network on appropiately-typed data vector.   
     
     private:
-        const double m_LEARNINGRATE{0.2};     // Learning rate
+        const double m_LEARNINGRATE{0.3};     // Learning rate
         const int    m_BATCHSIZE{1};
 
         vector<int> m_layerSizes;              // A vector of integers containing the number of neurons in each layer.

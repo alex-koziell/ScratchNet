@@ -3,6 +3,7 @@
 #include "math/linearalgebra.hpp"
 #include "math/numerical.hpp"
 
+#include <ctime>
 #include <iostream>
 #include <vector>
 
@@ -66,7 +67,7 @@ void Network::feedForward()
 
     for (int layerNum=0; layerNum<(m_layers.size()-1); ++layerNum) // for the input to penultimate layer
     {
-        vector<double> currentLayerOutputs = m_layers.at(layerNum).getActivations();
+        vector<double> currentLayerOutputs { m_layers.at(layerNum).getActivations() };
         vector<double> nextLayerInputs { m_weightMatrices.at(layerNum) * currentLayerOutputs };
 
         for (int neuronNum=0; neuronNum<nextLayerInputs.size(); ++neuronNum)
@@ -128,7 +129,6 @@ void Network::backPropagate(bool isNewBatch)
         }
 
         // linalg::print(m_errors.at(i-1));
-        std::cout << endl;
     };
 }
 
@@ -143,25 +143,28 @@ void Network::update()
    {
         linalg::Matrix<double> &currentWeightMatrix = m_weightMatrices.at(l);      // weight of connections from layer l to layer l+1
         vector<double> &currentError = m_errors.at(l);
+        double learningCoefficient {m_LEARNINGRATE / m_BATCHSIZE};
 
         // neuron indexing: i in layer l and j in layer l+1
-        for(int j=0; j<m_layers.at(l+1).getSize(); ++j)
+        int maxj { currentWeightMatrix.numRows()-1 };
+        int i {0}; int j {0};
+        for(double matrixEntry: currentWeightMatrix.getValues())
         {
-            for(int i=0; i<m_layers.at(l).getSize(); ++i)
+            matrixEntry -= learningCoefficient
+                           * m_layers.at(l).getActivationAt(i) // activation of neuron i in layer l
+                           * m_errors.at(l).at(j);
+            if(j<maxj)
             {
-                double newWeight { currentWeightMatrix(j,i)     // connection weight from neuron i to neuron j
-                                 - m_LEARNINGRATE / m_BATCHSIZE
-                                 * m_layers.at(l).getActivations().at(i) // activation of neuron i in layer l
-                                 * m_errors.at(l).at(j) };     // error of neuron j in layer l+1
+                ++j;
+            } else {
+                double newBias { m_layers.at(l+1).getBiasAt(j)
+                - learningCoefficient
+                * m_errors.at(l).at(j)};
+                m_layers.at(l+1).setBiasAt(j, newBias);
                 
-                currentWeightMatrix(j, i) = newWeight;
+                j = 0;
+                ++i;
             }
-
-            // update neuron j's bias
-            double newBias { m_layers.at(l+1).getBiasAt(j)
-                           - m_LEARNINGRATE / m_BATCHSIZE
-                           * m_errors.at(l).at(j)};
-            m_layers.at(l+1).setBiasAt(j, newBias);
         }
    }
 }
@@ -177,17 +180,20 @@ void Network::train(vector<vector<vector<double>>> trainingData)
 
     for (vector<vector<double>> trainingSample : trainingData) // for each training sample
     {
+        clock_t time0 {clock()};
         /* Set inputs */
         vector<double> input {trainingSample.at(0)};
         setInput(input);
+        clock_t time1 {clock()};
 
         /* Current target */
         vector<double> targetOutput {trainingSample.at(1)};
         setTarget(targetOutput);
-
+        clock_t time2 {clock()};
         /* Feedforward */
         std::cout << "(PASS : " << trainingPass << ")" << endl;
         feedForward();
+        clock_t time3 {clock()};
         // printToConsole();
         std::cout << "OUTPUT LAYER:";
         vector<double> layerVector{ m_layers.at(m_numLayers-1).getActivations() };
@@ -197,10 +203,12 @@ void Network::train(vector<vector<vector<double>>> trainingData)
         {
             std::cout << " " << output << ",";
         }
-        std::cout << "]" << endl;
+        std::cout << "]"<<endl;
 
         /* Backpropagate */
+        clock_t time4 {clock()};
         backPropagate(sampleNum==1);
+        clock_t time5 {clock()};
 
         /* Update weights if end of batch */
         if (sampleNum == m_BATCHSIZE)
@@ -211,6 +219,14 @@ void Network::train(vector<vector<vector<double>>> trainingData)
 
         ++sampleNum;
         ++trainingPass;
+
+        clock_t time6 {clock()};
+        cout<<"Time for setting input: "<<time1-time0<<endl;
+        cout<<"Time for setting target: "<<time2-time1<<endl;
+        cout<<"Time for feedforward: "<<time3-time2<<endl;
+        cout<<"Time for backprop: "<<time5-time4<<endl;
+        cout<<"Time for update: "<<time6-time5<<endl;
+        cout<<"Time for full pass: "<<time6-time0<<endl<<endl;
     }
 }
 

@@ -63,8 +63,8 @@ int main(int argc, char *argv[]) {
                 };
                 trainingData.at(i) = currentSample;
             }
-            layerSizes = {784, 32, 10};
-            activationTypes = {Activation::RELU, Activation::RELU, Activation::FAST_SIGMOID};
+            layerSizes = {784, 32, 32, 10};
+            activationTypes = {Activation::RELU, Activation::RELU, Activation::RELU, Activation::FAST_SIGMOID};
         }
         
         /* Initialize network, then train */

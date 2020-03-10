@@ -38,8 +38,13 @@ namespace linalg
                 const vector<int> shape {m_numRows, m_numCols};
                 return shape; 
             }
+
+            int numRows() const { return m_numRows; }
+            int numCols() const { return m_numCols; }
             
             int size()  { return m_size; } // Number of elements in the array.
+
+            vector<T>& getValues() { return m_values; }
 
             // WHOLE-MATRIX OPERATIONS (transpose, randomize)
             Matrix<T> transpose()

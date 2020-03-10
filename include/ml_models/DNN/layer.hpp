@@ -23,7 +23,9 @@ class Layer
         vector<double> getInputs()        const;   // Returns a vector of the neuron inputs for this layer.
         vector<double> getActivations()   const;   // Returns a vector of the neuron activations.
         vector<double> getDerivatives()   const;   // Returns a vector of the neuron derivatives.
-        double getBiasAt(int neuronIndex) const;   // Returns the bias of the neuron at neuronIndex.
+
+        double getActivationAt(int neuronIndex) const; // Returns activation of neuron at neuronIndex in m_neurons.
+        double getBiasAt(int neuronIndex) const;       // Returns the bias of the neuron at neuronIndex.
 
         int getSize() const { return m_numNeurons; }
 

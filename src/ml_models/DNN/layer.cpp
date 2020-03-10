@@ -50,11 +50,6 @@ void Layer::setBiasAt(int neuronIndex, double bias)
    m_neurons.at(neuronIndex).setBias(bias);
 }
 
-double Layer::getBiasAt(int neuronIndex) const
-{
-    return m_neurons.at(neuronIndex).getBias();
-}
-
 vector<double> Layer::getInputs() const {
     /*
     Returns the inputs of the neurons in the layer as a matrix object
@@ -100,4 +95,14 @@ vector<double> Layer::getDerivatives() const {
     }
 
     return derivativesVector;  
+}
+
+double Layer::getActivationAt(int neuronIndex) const
+{
+    return m_neurons.at(neuronIndex).getActivation();
+}
+
+double Layer::getBiasAt(int neuronIndex) const
+{
+    return m_neurons.at(neuronIndex).getBias();
 }
