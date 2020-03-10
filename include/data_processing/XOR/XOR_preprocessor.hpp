@@ -6,10 +6,10 @@
 
 using namespace std;
 
-class Preprocessor
+class XORPreprocessor
 {
     public:
-        Preprocessor(string filePath);
+        XORPreprocessor(string filePath);
         vector<vector<vector<double>>> getTrainingData() { return m_data; };
         int getInputSize()  { return m_inputSize;  }
         int getOutputSize() { return m_outputSize; }

@@ -6,7 +6,7 @@
 
 void test_XORpreprocessor()
 {
-    Preprocessor trainingClass = Preprocessor("../data/XOR_train.txt"); 
+    XORPreprocessor trainingClass = XORPreprocessor("../data/XOR_train.txt"); 
     const int inputLayerSize = trainingClass.getInputSize();
     const int outputLayerSize = trainingClass.getOutputSize();
 

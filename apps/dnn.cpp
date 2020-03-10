@@ -2,15 +2,17 @@
 
 #include "math/matrix.hpp"
 #include "math/linearalgebra.hpp"
-//#include "preprocessing/preprocessor.hpp"
+#include "data_processing/XOR/XOR_preprocessor.hpp"
 #include "data_processing/MNIST/mnist_data.hpp"
 #include "data_processing/MNIST/mnist_data_handler.hpp"
+
+#include <cstring>
 #include <iostream>
 #include <iomanip>
 
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[]) {
     /*
     TODO/RULES:
     - consts where possible and const qualified functions
@@ -19,38 +21,52 @@ int main() {
     - Rule: Do not copy initialize your classes
     */
 
-   printf("ScratchNet");
+   if(argc<=1)
+   {
+       cout <<"Usage: dnn EXAMPLE"<<endl
+            <<"Current available examples:"<<endl
+            <<"XOR"<<endl
+            <<"MNIST"<<endl;
+   } else
+   {
+          printf("ScratchNet");
 
-    // /* Get training data */
-    // Preprocessor trainingClass("./data/XOR_train.txt"); 
-    // const int inputLayerSize  = trainingClass.getInputSize();
-    // const int outputLayerSize = trainingClass.getOutputSize();
-    // vector<vector<vector<double>>> trainingData { trainingClass.getTrainingData() };
+        /* Get training data and network parameters */
+        vector<vector<vector<double>>> trainingData;
+        vector<int> layerSizes;
 
-    MNISTDataHandler dataHandler{MNISTDataHandler()};
-
-    dataHandler.readFeatureVector("data/train-images-idx3-ubyte");
-    dataHandler.readLabels("data/train-labels-idx1-ubyte");
-    dataHandler.splitData();
-    dataHandler.countClasses();
-
-    cout << "Preproccessing Training Data for Network" << endl;
-    vector<vector<vector<double>>> trainingData(dataHandler.getTrainingData().size());
-    for (int i=0; i<dataHandler.getTrainingData().size(); ++i)
-    {
-        vector<vector<double>> currentSample
+        if(!strcmp(argv[1], "XOR"))
         {
-        dataHandler.getTrainingData().at(i).getFeatureVector(),
-        dataHandler.getTrainingData().at(i).getClassVector()
-        };
-        trainingData.at(i) = currentSample;
+            XORPreprocessor trainingClass("./data/XOR_train.txt"); 
+            const int inputLayerSize  = trainingClass.getInputSize();
+            const int outputLayerSize = trainingClass.getOutputSize();
+            trainingData = trainingClass.getTrainingData();
+            layerSizes = {inputLayerSize, 5, outputLayerSize};
+        }
+        else if (!strcmp(argv[1], "MNIST"))
+        {
+            MNISTDataHandler dataHandler{MNISTDataHandler()};
+            dataHandler.readFeatureVector("data/train-images-idx3-ubyte");
+            dataHandler.readLabels("data/train-labels-idx1-ubyte");
+            dataHandler.splitData();
+            dataHandler.countClasses();
+            trainingData.resize(dataHandler.getTrainingData().size());
+            for (int i=0; i<dataHandler.getTrainingData().size(); ++i)
+            {
+                vector<vector<double>> currentSample
+                {
+                    dataHandler.getTrainingData().at(i).getFeatureVector(),
+                    dataHandler.getTrainingData().at(i).getClassVector()
+                };
+                trainingData.at(i) = currentSample;
+            }
+            layerSizes = {784, 32, 10};
+        }
+        
+        /* Initialize network, then train */
+        Network neuralNetwork {Network(layerSizes)};
+        neuralNetwork.train(trainingData);
     }
-
-    /* Initialize network, then train */
-    cout << "Training Network for " << dataHandler.getClassCounts() << " classes." << endl;
-    vector<int> layerSizes {784, 32, dataHandler.getClassCounts()};
-    Network neuralNetwork {Network(layerSizes)};
-    neuralNetwork.train(trainingData);
 
     return 0;
 }

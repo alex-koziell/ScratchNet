@@ -6,7 +6,7 @@
 #include <sstream>
 #include <vector>
 
-Preprocessor::Preprocessor(string filePath)
+XORPreprocessor::XORPreprocessor(string filePath)
 {
     /*
     Using the image filepath, create data that can be used by the network to train.
@@ -47,7 +47,7 @@ Preprocessor::Preprocessor(string filePath)
 
 }
 
-vector<double> Preprocessor::createLayerVector(string values)
+vector<double> XORPreprocessor::createLayerVector(string values)
 {
     /*
     Turns a string of doubles, separated by spaces, into a vector of doubles
