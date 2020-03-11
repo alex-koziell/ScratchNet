@@ -1,14 +1,14 @@
 #ifndef KNN_HPP
 #define KNN_HPP
 
-#include "common.hpp"
-#include "MNIST/mnist_data.hpp"
+#include "data_processing/MNIST/common.hpp"
+#include "data_processing/MNIST/mnist_data.hpp"
 #include <vector>
 
 class KNN : public commonData {
     private:
         int k;
-        std::vector<MNISTData*>* neighbours;
+        std::vector<MNISTData*> neighbours;
         double distance;
         
     public:

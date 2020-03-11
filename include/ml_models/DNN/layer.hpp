@@ -32,6 +32,7 @@ class Layer
     private:
         Activation m_activationType;
         int m_numNeurons;           // Number of neurons in the layer.
+        vector<double> m_activationsVector;
         vector<Neuron> m_neurons;   // A vector holding the this layer's neurons.
 };
 

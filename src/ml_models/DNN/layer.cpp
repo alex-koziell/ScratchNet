@@ -11,6 +11,7 @@ Layer::Layer(int numNeurons, Activation activationType)
 
     m_numNeurons = numNeurons;
     m_activationType = activationType;
+    m_activationsVector.resize(m_numNeurons);
     for (int neuronIndex=0; neuronIndex<numNeurons; ++neuronIndex)
     {
         // currently initializes layer with neuron inputs all 0.0 - to be researched
@@ -39,6 +40,7 @@ void Layer::setInputAt(int neuronIndex, double input)
     */
 
     m_neurons.at(neuronIndex).setInput(input);
+    m_activationsVector.at(neuronIndex) = m_neurons.at(neuronIndex).getActivation();
 }
 
 void Layer::setBiasAt(int neuronIndex, double bias)
@@ -69,17 +71,9 @@ vector<double> Layer::getInputs() const {
 
 vector<double> Layer::getActivations() const {
     /*
-    Returns the activation of each neuron in the layer.
+    Returns the activation of each neuron in the layer as a vector.
     */
-
-    vector<double> activationVector;
-
-    for (int neuronIndex=0; neuronIndex<m_numNeurons; ++neuronIndex)
-    {   // uses accessor function of the neuron class similarly to Layer::getInputs()
-        activationVector.push_back(m_neurons.at(neuronIndex).getActivation());
-    }
-
-    return activationVector;
+    return m_activationsVector;
 }
 
 vector<double> Layer::getDerivatives() const {

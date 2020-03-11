@@ -8,5 +8,5 @@ target_link_libraries(test_XORpreprocessor PRIVATE data_processing_lib)
 
 # If you register a test, then ctest and make test will run it.
 # You can also run examples and check the output, as well.
-add_test(NAME test_linearalgebratest COMMAND test_linearalgebra) # Command can be a target
+add_test(NAME test_linearalgebra COMMAND test_linearalgebra) # Command can be a target
 add_test(NAME test_XORpreprocessor COMMAND test_XORpreprocessor)

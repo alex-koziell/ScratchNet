@@ -29,20 +29,20 @@ void MNISTDataHandler::readFeatureVector(std::string path)
         printf("Image size: %d pixels\n", imageSize);
         for (int i=0; i<header[1]; ++i)
         {
-            MNISTData data = MNISTData();
+            allData.push_back(MNISTData());
             uint8_t element[1];
             for (int j=0; j<imageSize; ++j)
             {
                 if (fread(element, sizeof(element), 1, f))
                 {
-                    data.appendToFeatureVector(double{element[0]/255.0});
+                    allData.back().appendToFeatureVector(double{element[0]/255.0});
                 } else
                 {
                     printf("Error reading from file.\n");
                     exit(1);
                 }
             }
-            allData.push_back(data);
+            ;
         }
         printf("Successfully read and stored %lu feature vectors.\n", allData.size());
     } else
